@@ -178,6 +178,7 @@ set helplang=cn
 set nu
 set ts=4
 set shiftwidth=4
+set backspace=2
 set expandtab
 set autoindent
 set showmatch
