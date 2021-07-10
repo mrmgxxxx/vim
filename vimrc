@@ -19,7 +19,7 @@ Plug 'preservim/tagbar'
 " GOLANG插件
 Plug 'fatih/vim-go'
 Plug 'volgar1x/vim-gocode'
-" Vim状态栏插件，包括显示行号，列号，文件类型，文件名，以及Git状态
+" 状态栏插件
 Plug 'vim-airline/vim-airline'
 " 简单自动补全
 Plug 'maxboisvert/vim-simple-complete'
@@ -36,6 +36,10 @@ Plug 'elzr/vim-json'
 Plug 'ntpeters/vim-better-whitespace'
 " 自动对齐
 Plug 'godlygeek/tabular'
+" solarized
+Plug 'altercation/vim-colors-solarized'
+" codedark
+Plug 'tomasiser/vim-code-dark'
 call plug#end()
 
 " 插件: scrooloose/nerdtree
@@ -149,7 +153,7 @@ nmap <F4> :TagbarToggle<CR>
 noremap <Leader>gg :<C-U><C-R>=printf("Leaderf! rg --stayOpen -e %s ", expand("<cword>"))<CR>
 
 " search word under cursor in *.h and *.cpp files.
-"noremap <Leader>gg :<C-U><C-R>=printf("Leaderf! rg --stayOpen -e %s -g *.{h,cpp}", expand("<cword>"))<CR>
+" noremap <Leader>gg :<C-U><C-R>=printf("Leaderf! rg --stayOpen -e %s -g *.{h,cpp}", expand("<cword>"))<CR>
 
 " 终端编码设置
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
@@ -172,3 +176,15 @@ set colorcolumn=120 " 设置中线宽度
 if has("autocmd")
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif " 记录上一次浏览位置
 endif
+
+" 主题设置
+syntax enable
+set background=dark " light
+
+" solarized
+" colorscheme solarized
+" let g:solarized_termcolors=256
+
+" codedark
+colorscheme codedark
+let g:airline_theme = 'codedark'

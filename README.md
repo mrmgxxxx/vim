@@ -36,9 +36,6 @@ Plug 'vim-syntastic/syntastic'
 " CPP语法高亮
 Plug 'octol/vim-cpp-enhanced-highlight'
 
-" 轻量级自动补全
-Plug 'skywind3000/vim-auto-popmenu'
-
 " 代码结构展示
 Plug 'preservim/tagbar'
 
@@ -46,8 +43,14 @@ Plug 'preservim/tagbar'
 Plug 'fatih/vim-go'
 Plug 'volgar1x/vim-gocode'
 
-" Vim状态栏插件，包括显示行号，列号，文件类型，文件名，以及Git状态
+" 状态栏插件
 Plug 'vim-airline/vim-airline'
+
+" 简单自动补全
+Plug 'maxboisvert/vim-simple-complete'
+
+" LeaderF搜索
+Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 
 " Markdown插件
 Plug 'iamcco/mathjax-support-for-mkdp'
@@ -64,11 +67,21 @@ Plug 'ntpeters/vim-better-whitespace'
 
 " 自动对齐
 Plug 'godlygeek/tabular'
+
+" solarized
+Plug 'altercation/vim-colors-solarized'
+
+" codedark
+Plug 'tomasiser/vim-code-dark'
 ```
 
 ## 主题配色
 
-默认并没有集成主题配色，个人喜好不同，自己配置吧, 推荐（https://github.com/altercation/vim-colors-solarized）
+默认集成了VSCode深色主题，可以自己配置，基于Vim-Plug很简单:
+
+![avatar](https://cloud.githubusercontent.com/assets/10374559/23341312/1961f416-fc45-11e6-83ba-d7180c5fdd6d.png)
+
+`个人推荐配色`:https://github.com/altercation/vim-colors-solarized
 
 ## vim-plug插件管理
 
