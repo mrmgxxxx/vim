@@ -8,14 +8,14 @@ Plug 'jistr/vim-nerdtree-tabs'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 " 文件查找
 Plug 'kien/ctrlp.vim'
+" EasyGrep
+Plug 'dkprice/vim-easygrep'
 " 自动生成ctags
 Plug 'ludovicchabant/vim-gutentags'
 " 多语言语法纠错
 Plug 'vim-syntastic/syntastic'
 " CPP语法高亮
 Plug 'octol/vim-cpp-enhanced-highlight'
-" 轻量级自动补全
-Plug 'skywind3000/vim-auto-popmenu'
 " 代码结构展示
 Plug 'preservim/tagbar'
 " GOLANG插件
@@ -23,6 +23,8 @@ Plug 'fatih/vim-go'
 Plug 'volgar1x/vim-gocode'
 " Vim状态栏插件，包括显示行号，列号，文件类型，文件名，以及Git状态
 Plug 'vim-airline/vim-airline'
+" 简单自动补全
+Plug 'maxboisvert/vim-simple-complete'
 " Markdown插件
 Plug 'iamcco/mathjax-support-for-mkdp'
 Plug 'iamcco/markdown-preview.vim'
@@ -106,13 +108,6 @@ let g:cpp_experimental_simple_template_highlight = 1
 let g:cpp_experimental_template_highlight = 1
 let g:cpp_concepts_highlight = 1
 
-" 插件: skywind3000/vim-auto-popmenu
-" 设定需要生效的文件类型，如果是 "*" 的话，代表所有类型
-let g:apc_enable_ft = {'*':1}
-set cpt=.,k,w,b
-set completeopt=menu,menuone,noselect
-set shortmess+=c
-
 " 插件: fatih/vim-go
 imap <F5> <C-x><C-o>
 au filetype go inoremap <buffer> . .<C-x><C-o>
@@ -138,6 +133,10 @@ let g:syntastic_go_checkers = ['go']
 let g:syntastic_cpp_checkers = ['gcc']
 let g:syntastic_cpp_compiler = 'gcc'
 let g:syntastic_cpp_compiler_options = '-std=c++11'
+
+" 插件: maxboisvert/vim-simple-complete
+set complete-=t
+set complete-=i
 
 " 插件: zivyangll/git-blame.vim
 nnoremap <Leader>f :<C-u>call gitblame#echo()<CR>
