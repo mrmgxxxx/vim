@@ -8,8 +8,6 @@ Plug 'jistr/vim-nerdtree-tabs'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 " 文件查找
 Plug 'kien/ctrlp.vim'
-" EasyGrep
-Plug 'dkprice/vim-easygrep'
 " 自动生成ctags
 Plug 'ludovicchabant/vim-gutentags'
 " 多语言语法纠错
@@ -25,6 +23,8 @@ Plug 'volgar1x/vim-gocode'
 Plug 'vim-airline/vim-airline'
 " 简单自动补全
 Plug 'maxboisvert/vim-simple-complete'
+" LeaderF搜索
+Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 " Markdown插件
 Plug 'iamcco/mathjax-support-for-mkdp'
 Plug 'iamcco/markdown-preview.vim'
@@ -144,6 +144,13 @@ nnoremap <Leader>f :<C-u>call gitblame#echo()<CR>
 " 插件: preservim/tagbar
 nmap <F4> :TagbarToggle<CR>
 
+" 插件: Yggdroot/LeaderF
+" search word under cursor, the pattern is treated as regex, and enter normal mode directly
+noremap <Leader>gg :<C-U><C-R>=printf("Leaderf! rg --stayOpen -e %s ", expand("<cword>"))<CR>
+
+" search word under cursor in *.h and *.cpp files.
+"noremap <Leader>gg :<C-U><C-R>=printf("Leaderf! rg --stayOpen -e %s -g *.{h,cpp}", expand("<cword>"))<CR>
+
 " 终端编码设置
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 set termencoding=utf-8
@@ -162,4 +169,6 @@ set showmatch       " 显示括号等匹配
 set colorcolumn=120 " 设置中线宽度
 
 " 其他设置
+if has("autocmd")
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif " 记录上一次浏览位置
+endif
