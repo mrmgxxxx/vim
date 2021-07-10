@@ -20,7 +20,7 @@ Plug 'ycm-core/YouCompleteMe'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Vim状态栏插件，包括显示行号，列号，文件类型，文件名，以及Git状态
 Plug 'vim-airline/vim-airline'
-" markdown插件
+" Markdown插件
 Plug 'iamcco/mathjax-support-for-mkdp'
 Plug 'iamcco/markdown-preview.vim'
 " 代码GIT提交信息插件
@@ -66,22 +66,23 @@ let g:NERDTreeShowIgnoredStatus = 1
 """"gutentags插件相关设置""""
 " 启用
 let g:gutentags_enabled = 1
-" gutentags搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归 "
+
+" gutentags搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
 let g:gutentags_project_root = ['.root', '.svn', '.git', '.project', '.vimex']
 
-" 所生成的数据文件的名称 "
+" 所生成的数据文件的名称
 let g:gutentags_ctags_tagfile = '.tags'
 
-" 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录 "
+" 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
 let s:vim_tags = expand('~/.cache/tags')
 let g:gutentags_cache_dir = s:vim_tags
 
-" 检测 ~/.cache/tags 不存在就新建 "
+" 检测 ~/.cache/tags 不存在就新建
 if !isdirectory(s:vim_tags)
    silent! call mkdir(s:vim_tags, 'p')
 endif
 
-" 配置 ctags 的参数 "
+" 配置 ctags 的参数
 let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+pxI']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
