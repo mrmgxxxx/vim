@@ -151,6 +151,7 @@ nmap <F4> :TagbarToggle<CR>
 " 插件: Yggdroot/LeaderF
 " search word under cursor, the pattern is treated as regex, and enter normal mode directly
 noremap <Leader>gg :<C-U><C-R>=printf("Leaderf! rg --stayOpen -e %s ", expand("<cword>"))<CR>
+noremap <Leader>GG :<C-U><C-R>=printf("Leaderf rg --stayOpen -e %s ", expand("<cword>"))<CR>
 
 " search word under cursor in *.h and *.cpp files.
 " noremap <Leader>gg :<C-U><C-R>=printf("Leaderf! rg --stayOpen -e %s -g *.{h,cpp}", expand("<cword>"))<CR>
