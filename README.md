@@ -90,7 +90,7 @@ make install
 
 `注意`: gcc/g++/clang/go等主体工具自己需要用什么就提前安装配置好
 
-YouCompleteMe:
+YouCompleteMe安装教程(以ubuntu为示例):
 
 ```shell
 # 安装llvm clang
@@ -105,7 +105,6 @@ clang -v
 ll /usr/lib/x86_64-linux-gnu/libc++*
 ll /usr/lib/x86_64-linux-gnu/libc++abi*
 ln -sf ll /usr/lib/x86_64-linux-gnu/libc++* /usr/local/lib/
-
 
 # 安装YCM
 apt install build-essential cmake vim-nox python3-dev
@@ -122,6 +121,88 @@ https://github.com/ycm-core/llvm/releases/download/12.0.0/libclang-12.0.0-x86_64
 # 安装YCM
 cd ~/.vim/plugged/YouCompleteMe && python3 install.py --clang-completer
 ll ~/.vim/plugged/YouCompleteMe/third_party/ycmd/third_party/clang/lib/
+~/.vim/plugged/YouCompleteMe/third_party/ycmd/examples/
+mv ~/.vim/plugged/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py ~/.vim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/
+
+# 配置vimrc
+let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_server_log_level = 'info'
+
+" 开启YCM 基于标签引擎
+let g:ycm_collect_identifiers_from_tags_files=1
+
+" 注释和字符串中的文字也会被收入补全
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
+
+" 从第2个键入字符就开始罗列匹配项
+let g:ycm_min_num_identifier_candidate_chars = 2
+
+" 在注释输入中也能补全
+let g:ycm_complete_in_comments = 1
+
+" 在字符串输入中也能补全
+let g:ycm_complete_in_strings=1
+
+" 语法关键字补全
+let g:ycm_seed_identifiers_with_syntax=1
+
+" 快捷键设置
+let g:ycm_key_invoke_completion = '<c-z>'
+noremap <c-z> <NOP>
+
+" 让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
+set completeopt=longest,menu
+
+" 不喜欢候选框乱弹的话可以打开这两行
+"set completeopt=menu,menuone
+"let g:ycm_add_preview_to_completeopt = 0
+
+" 离开插入模式后自动关闭预览窗口
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
+" 回车即选中当前项
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
+
+" 上下左右键的行为 会显示其他信息
+inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
+inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
+inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
+inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
+
+" 补全触发规则
+let g:ycm_semantic_triggers =  {
+			\ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
+			\ 'cs,lua,javascript': ['re!\w{2}'],
+			\ }
+
+" 补全候选框颜色
+highlight PMenu ctermfg=0 ctermbg=242 guifg=black guibg=darkgrey
+highlight PMenuSel ctermfg=242 ctermbg=8 guifg=darkgrey guibg=black
+
+" 不要提示代码诊断信息
+let g:ycm_show_diagnostics_ui = 0
+
+" 语义分析白名单，避免白名单之外的文件类型进行分析
+let g:ycm_filetype_whitelist = {
+			\ "c":1,
+			\ "cpp":1,
+			\ "go":1,
+			\ "lua":1,
+			\ "perl":1,
+			\ "perl6":1,
+			\ "rust":1,
+			\ "make":1,
+			\ "cmake":1,
+			\ "html":1,
+			\ "json":1,
+			\ "sh":1,
+			\ "zsh":1,
+			\ "bash":1,
+			\ "man":1,
+			\ "markdown":1,
+			\ "conf":1,
+			\ "config":1,
+			\ }
 
 # 解决libstdc++.so ：version ‘ GLIBCXX_3.4.26’ not found
 安装或下载最新的libstdc++.so.6.0.26（支持到GLIBCXX_3.4.26），放到/usr/lib/x86_64-linux-gnu, 软连接：
