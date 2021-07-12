@@ -135,7 +135,10 @@ ln -sf libstdc++.so.6.0.26 libstdc++.so.6
 
 ```shell
 let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
-let g:ycm_server_log_level = 'info'
+
+" 设置YCM运行错误日志级别，info会忽略一些信息
+" 建议安装时不要启用这个配置项，因为可能存在一些插件配置错误信息，设置后不便于排查
+"let g:ycm_server_log_level = 'info'
 
 " 开启YCM 基于标签引擎
 let g:ycm_collect_identifiers_from_tags_files=1
