@@ -46,7 +46,7 @@ Plug 'volgar1x/vim-gocode'
 " 状态栏插件
 Plug 'vim-airline/vim-airline'
 
-" 简单自动补全
+" 简单自动补全(如果需要YouCompleteMe可参见下方教程自行安装, 安装后去除本插件)
 Plug 'maxboisvert/vim-simple-complete'
 
 " LeaderF搜索
@@ -89,6 +89,46 @@ make install
 ```
 
 `注意`: gcc/g++/clang/go等主体工具自己需要用什么就提前安装配置好
+
+YouCompleteMe:
+
+```shell
+# 安装llvm clang
+apt-get install clang
+apt-get install libclang-dev
+apt-get install llvm
+apt-get install libc++-dev
+apt-get install libc++abi-dev
+
+# 检查llvm clang安装
+clang -v
+ll /usr/lib/x86_64-linux-gnu/libc++*
+ll /usr/lib/x86_64-linux-gnu/libc++abi*
+ln -sf ll /usr/lib/x86_64-linux-gnu/libc++* /usr/local/lib/
+
+
+# 安装YCM
+apt install build-essential cmake vim-nox python3-dev
+apt-get install g++-8
+update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 700 --slave /usr/bin/g++ g++ /usr/bin/g++-7
+update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 800 --slave /usr/bin/g++ g++ /usr/bin/g++-8
+
+# 解决YCM依赖, 注意版本不一定是12.0.0
+cd ~/.vim/plugged/YouCompleteMe/third_party/ycmd/clang_archives/
+
+mv libclang-12.0.0-x86_64-unknown-linux-gnu.tar.bz2 mlibclang-12.0.0-x86_64-unknown-linux-gnu.tar.bz2
+https://github.com/ycm-core/llvm/releases/download/12.0.0/libclang-12.0.0-x86_64-unknown-linux-gnu.tar.bz2
+
+# 安装YCM
+cd ~/.vim/plugged/YouCompleteMe && python3 install.py --clang-completer
+ll ~/.vim/plugged/YouCompleteMe/third_party/ycmd/third_party/clang/lib/
+
+# 解决libstdc++.so ：version ‘ GLIBCXX_3.4.26’ not found
+安装或下载最新的libstdc++.so.6.0.26（支持到GLIBCXX_3.4.26），放到/usr/lib/x86_64-linux-gnu, 软连接：
+ln -sf libstdc++.so.6.0.26 libstdc++.so.6
+
+在仓库中提供一个下载编译好的libstdc++.so.6.0.26可直接使用
+````
 
 ## 使用介绍
 >每个人配置不同，使用习惯不同，这里记下这套配置的使用方式
