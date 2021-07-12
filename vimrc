@@ -130,6 +130,7 @@ let g:go_highlight_diagnostic_warnings = 1
 
 " 插件: vim-syntastic/syntastic
 let g:syntastic_check_on_wq=1
+let g:syntastic_cpp_check_header = 1
 let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='►'
 let g:syntastic_enable_highlighting=1
