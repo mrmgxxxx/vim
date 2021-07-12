@@ -83,11 +83,18 @@ let g:NERDTreeShowIgnoredStatus = 1
 
 " 插件: ludovicchabant/vim-gutentags
 let g:gutentags_enabled = 1
+
+" 关闭默认加入工程文件列表，完全按照下面自行定义的列表进行工程根目录搜索
+let g:gutentags_add_default_project_roots = 0
+
 " gutentags搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
 " 注意混合项目时（多个含有工程文件的文件夹通知存在），在上层目录操作可能无法实现跳转,
 " 很多时候项目中都含有.git，这种情况下需要注意下项目根目录位置, 根据需要灵活修改这里的配置
 " 我的做法是在常规模式下不会加入.git等配置，只会保留.root的匹配，自行控制项目根目录
-let g:gutentags_project_root = ['.root', '.svn', '.git', '.project', '.vimex', '.vim']
+" 举个例子：目录下有两个子目录，这两个子目录都是单独的仓库有各自的.git文件，这种情况下每个目录下
+" 会使用各自目录下的tags文件，这是两者之间可能无法互相跳转，需要让他们都是用上层根目录的tags来保证
+" 两者可以相互关联跳转定义
+let g:gutentags_project_root = ['.root']
 
 " 所生成的数据文件的名称
 let g:gutentags_ctags_tagfile = '.tags'
