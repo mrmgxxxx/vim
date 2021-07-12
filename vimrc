@@ -85,6 +85,7 @@ let g:NERDTreeShowIgnoredStatus = 1
 let g:gutentags_enabled = 1
 
 " 关闭默认加入工程文件列表，完全按照下面自行定义的列表进行工程根目录搜索
+" 默认会加入.git、.svn等工程文件名匹配
 let g:gutentags_add_default_project_roots = 0
 
 " gutentags搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
@@ -94,6 +95,7 @@ let g:gutentags_add_default_project_roots = 0
 " 举个例子：目录下有两个子目录，这两个子目录都是单独的仓库有各自的.git文件，这种情况下每个目录下
 " 会使用各自目录下的tags文件，这是两者之间可能无法互相跳转，需要让他们都是用上层根目录的tags来保证
 " 两者可以相互关联跳转定义
+" 遇到无法正确跳转匹配时，可以再vim命令行输入'echo tagfiles()'来查看当前使用的tags文件进行问题的debug
 let g:gutentags_project_root = ['.root']
 
 " 所生成的数据文件的名称
