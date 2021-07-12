@@ -77,7 +77,7 @@ Plug 'tomasiser/vim-code-dark'
 
 ## 依赖安装
 
-vim v8.2+ with python3:
+### vim v8.2+ with python3
 
 ```shell
 git clone https://github.com/vim/vim.git
@@ -90,7 +90,9 @@ make install
 
 `注意`: gcc/g++/clang/go等主体工具自己需要用什么就提前安装配置好
 
-YouCompleteMe安装教程(以ubuntu为示例):
+### YouCompleteMe安装教程(以ubuntu为示例)
+
+`安装`:
 
 ```shell
 # 安装llvm clang
@@ -122,7 +124,16 @@ cd ~/.vim/plugged/YouCompleteMe && python3 install.py --clang-completer
 ll ~/.vim/plugged/YouCompleteMe/third_party/ycmd/third_party/clang/lib/
 mv ~/.vim/plugged/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py ~/.vim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/
 
-# 配置vimrc
+# 解决libstdc++.so ：version ‘ GLIBCXX_3.4.26’ not found
+安装或下载最新的libstdc++.so.6.0.26（支持到GLIBCXX_3.4.26），放到/usr/lib/x86_64-linux-gnu, 软连接：
+ln -sf libstdc++.so.6.0.26 libstdc++.so.6
+
+在仓库中提供一个下载编译好的libstdc++.so.6.0.26可直接使用
+```
+
+`配置vimrc`:
+
+```shell
 let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 let g:ycm_server_log_level = 'info'
 
@@ -201,12 +212,6 @@ let g:ycm_filetype_whitelist = {
 			\ "conf":1,
 			\ "config":1,
 			\ }
-
-# 解决libstdc++.so ：version ‘ GLIBCXX_3.4.26’ not found
-安装或下载最新的libstdc++.so.6.0.26（支持到GLIBCXX_3.4.26），放到/usr/lib/x86_64-linux-gnu, 软连接：
-ln -sf libstdc++.so.6.0.26 libstdc++.so.6
-
-在仓库中提供一个下载编译好的libstdc++.so.6.0.26可直接使用
 ````
 
 ## 使用介绍
