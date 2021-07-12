@@ -114,14 +114,12 @@ update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 800 --slave /usr/b
 
 # 解决YCM依赖, 注意版本不一定是12.0.0
 cd ~/.vim/plugged/YouCompleteMe/third_party/ycmd/clang_archives/
-
 mv libclang-12.0.0-x86_64-unknown-linux-gnu.tar.bz2 mlibclang-12.0.0-x86_64-unknown-linux-gnu.tar.bz2
-https://github.com/ycm-core/llvm/releases/download/12.0.0/libclang-12.0.0-x86_64-unknown-linux-gnu.tar.bz2
+wget https://github.com/ycm-core/llvm/releases/download/12.0.0/libclang-12.0.0-x86_64-unknown-linux-gnu.tar.bz2
 
 # 安装YCM
 cd ~/.vim/plugged/YouCompleteMe && python3 install.py --clang-completer
 ll ~/.vim/plugged/YouCompleteMe/third_party/ycmd/third_party/clang/lib/
-~/.vim/plugged/YouCompleteMe/third_party/ycmd/examples/
 mv ~/.vim/plugged/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py ~/.vim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/
 
 # 配置vimrc
