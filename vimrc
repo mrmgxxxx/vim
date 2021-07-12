@@ -84,6 +84,9 @@ let g:NERDTreeShowIgnoredStatus = 1
 " 插件: ludovicchabant/vim-gutentags
 let g:gutentags_enabled = 1
 " gutentags搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
+" 注意混合项目时（多个含有工程文件的文件夹通知存在），在上层目录操作可能无法实现跳转,
+" 很多时候项目中都含有.git，这种情况下需要注意下项目根目录位置, 根据需要灵活修改这里的配置
+" 我的做法是在常规模式下不会加入.git等配置，只会保留.root的匹配，自行控制项目根目录
 let g:gutentags_project_root = ['.root', '.svn', '.git', '.project', '.vimex', '.vim']
 
 " 所生成的数据文件的名称
