@@ -169,6 +169,9 @@ noremap <Leader>GG :<C-U><C-R>=printf("Leaderf rg --stayOpen -e %s ", expand("<c
 " search word under cursor in *.h and *.cpp files.
 " noremap <Leader>gg :<C-U><C-R>=printf("Leaderf! rg --stayOpen -e %s -g *.{h,cpp}", expand("<cword>"))<CR>
 
+" 设置窗口高度
+ let g:Lf_WindowHeight = 0.20
+
 " 终端编码设置
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 set termencoding=utf-8
