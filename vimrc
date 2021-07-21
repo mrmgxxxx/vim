@@ -66,7 +66,6 @@ let NERDTreeShowBookmarks=2
 " 在终端启动vim时，共享NERDTree
 let g:nerdtree_tabs_open_on_console_startup=1
 
-" 插件: scrooloose/nerdtree
 let g:NERDTreeIndicatorMapCustom = {
     \ "Modified"  : "✹",
     \ "Staged"    : "✚",

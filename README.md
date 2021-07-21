@@ -158,10 +158,6 @@ let g:ycm_complete_in_strings=1
 " 语法关键字补全
 let g:ycm_seed_identifiers_with_syntax=1
 
-" 快捷键设置
-let g:ycm_key_invoke_completion = '<c-z>'
-noremap <c-z> <NOP>
-
 " 让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
 set completeopt=longest,menu
 
