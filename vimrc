@@ -30,8 +30,6 @@ Plug 'iamcco/mathjax-support-for-mkdp'
 Plug 'iamcco/markdown-preview.vim'
 " 代码GIT提交信息插件
 Plug 'zivyangll/git-blame.vim'
-" JSON插件
-Plug 'elzr/vim-json'
 " 显示多余空格
 Plug 'ntpeters/vim-better-whitespace'
 " 自动对齐
