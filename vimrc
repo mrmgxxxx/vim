@@ -185,6 +185,8 @@ set shiftwidth=4
 set autoindent      " 自动indent
 set showmatch       " 显示括号等匹配
 set colorcolumn=120 " 设置中线宽度
+set cursorline      " 十字光标对齐线
+set cursorcolumn    " 十字光标对齐线
 
 " 其他设置
 if has("autocmd")
