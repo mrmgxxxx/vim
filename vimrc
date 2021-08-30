@@ -172,6 +172,7 @@ let g:clang_format#filetype_style_options = {
         \     "AccessModifierOffset" : -4,
         \     "IndentCaseLabels" : "false",
         \     "FixNamespaceComments" : "true",
+        \     "PointerAlignment" : "Left",
         \     "BreakBeforeBraces" : "Custom",
         \     "BraceWrapping" : {
         \       "AfterUnion" : "true",
