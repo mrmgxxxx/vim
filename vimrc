@@ -14,6 +14,8 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'vim-syntastic/syntastic'
 " CPP语法高亮
 Plug 'octol/vim-cpp-enhanced-highlight'
+" CPP格式化
+Plug 'rhysd/vim-clang-format'
 " 代码结构展示
 Plug 'preservim/tagbar'
 " GOLANG插件
@@ -154,6 +156,38 @@ set complete-=i
 
 " 插件: zivyangll/git-blame.vim
 nnoremap <Leader>f :<C-u>call gitblame#echo()<CR>
+
+" 插件: rhysd/vim-clang-format
+let g:clang_format#command = 'clang-format'
+let g:clang_format#auto_format=1
+let g:clang_format#filetype_style_options = {
+        \ "cpp" : {
+        \     "Language" : "Cpp",
+        \     "BasedOnStyle" : "LLVM",
+        \     "UseTab" : "Never",
+        \     "TabWidth" : 4,
+        \     "IndentWidth" : 4,
+        \     "ColumnLimit" : 120,
+        \     "MaxEmptyLinesToKeep" : 1,
+        \     "AccessModifierOffset" : -4,
+        \     "IndentCaseLabels" : "false",
+        \     "FixNamespaceComments" : "true",
+        \     "AlignConsecutiveAssignments" : "true",
+        \     "AlignConsecutiveDeclarations" : "true",
+        \     "AllowShortFunctionsOnASingleLine" : "Inline",
+        \     "BreakBeforeBraces" : "Custom",
+        \     "BraceWrapping" : {
+        \       "AfterClass" : "true",
+        \       "AfterControlStatement" : "true",
+        \       "AfterEnum" : "true",
+        \       "AfterFunction" : "true",
+        \       "AfterStruct" : "true",
+        \       "AfterUnion" : "true",
+        \       "BeforeCatch" : "true",
+        \       "BeforeElse" : "true"
+        \     }
+        \   }
+        \ }
 
 " 插件: preservim/tagbar
 nmap <F4> :TagbarToggle<CR>
