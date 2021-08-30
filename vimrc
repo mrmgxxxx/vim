@@ -172,22 +172,25 @@ let g:clang_format#filetype_style_options = {
         \     "AccessModifierOffset" : -4,
         \     "IndentCaseLabels" : "false",
         \     "FixNamespaceComments" : "true",
-        \     "AlignConsecutiveAssignments" : "true",
-        \     "AlignConsecutiveDeclarations" : "true",
-        \     "AllowShortFunctionsOnASingleLine" : "Inline",
         \     "BreakBeforeBraces" : "Custom",
         \     "BraceWrapping" : {
+        \       "AfterUnion" : "true",
+        \       "AfterStruct" : "true",
         \       "AfterClass" : "true",
-        \       "AfterControlStatement" : "true",
         \       "AfterEnum" : "true",
         \       "AfterFunction" : "true",
-        \       "AfterStruct" : "true",
-        \       "AfterUnion" : "true",
+        \       "AfterControlStatement" : "true",
         \       "BeforeCatch" : "true",
-        \       "BeforeElse" : "true"
-        \     }
+        \       "BeforeElse" : "true",
+        \       "AfterNamespace" : "false"
+        \     },
+        \     "AllowShortFunctionsOnASingleLine" : "Inline"
         \   }
         \ }
+
+" 备忘选项:
+" "AlignConsecutiveAssignments" : "true"
+" "AlignConsecutiveDeclarations" : "true"
 
 " 插件: preservim/tagbar
 nmap <F4> :TagbarToggle<CR>
