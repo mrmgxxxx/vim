@@ -159,6 +159,12 @@ nnoremap <Leader>f :<C-u>call gitblame#echo()<CR>
 
 " 插件: rhysd/vim-clang-format
 let g:clang_format#command = 'clang-format'
+autocmd FileType c ClangFormatAutoEnable
+autocmd FileType h ClangFormatAutoEnable
+autocmd FileType cpp ClangFormatAutoEnable
+autocmd FileType hpp ClangFormatAutoEnable
+autocmd FileType cxx ClangFormatAutoEnable
+autocmd FileType hxx ClangFormatAutoEnable
 let g:clang_format#auto_format=1
 let g:clang_format#filetype_style_options = {
         \ "cpp" : {
@@ -167,7 +173,7 @@ let g:clang_format#filetype_style_options = {
         \     "UseTab" : "Never",
         \     "TabWidth" : 4,
         \     "IndentWidth" : 4,
-        \     "ColumnLimit" : 120,
+        \     "ColumnLimit" : 0,
         \     "MaxEmptyLinesToKeep" : 1,
         \     "AccessModifierOffset" : -4,
         \     "IndentCaseLabels" : "false",
