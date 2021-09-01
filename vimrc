@@ -167,6 +167,10 @@ autocmd FileType cxx ClangFormatAutoEnable
 autocmd FileType hxx ClangFormatAutoEnable
 let g:clang_format#auto_format=1
 let g:clang_format#filetype_style_options = {
+        \ "proto" : {
+        \     "Language" : "Proto",
+        \     "DisableFormat" : "true"
+        \ },
         \ "cpp" : {
         \     "Language" : "Cpp",
         \     "BasedOnStyle" : "LLVM",
