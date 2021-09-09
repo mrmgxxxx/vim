@@ -36,6 +36,9 @@ Plug 'vim-syntastic/syntastic'
 " CPP语法高亮
 Plug 'octol/vim-cpp-enhanced-highlight'
 
+" CPP格式化
+Plug 'rhysd/vim-clang-format'
+
 " 代码结构展示
 Plug 'preservim/tagbar'
 
@@ -52,18 +55,14 @@ Plug 'maxboisvert/vim-simple-complete'
 " LeaderF搜索
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 
-" Markdown插件
-Plug 'iamcco/mathjax-support-for-mkdp'
-Plug 'iamcco/markdown-preview.vim'
-
 " 代码GIT提交信息插件
 Plug 'zivyangll/git-blame.vim'
 
 " 显示多余空格
 Plug 'ntpeters/vim-better-whitespace'
 
-" 自动对齐
-Plug 'godlygeek/tabular'
+" Doxygen注释
+Plug 'vim-scripts/DoxygenToolkit.vim'
 
 " solarized
 Plug 'altercation/vim-colors-solarized'

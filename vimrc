@@ -2,42 +2,59 @@
 call plug#begin('~/.vim/plugged')
 " 目录树
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+
 " 目录树导航优化
 Plug 'jistr/vim-nerdtree-tabs'
+
 " 目录树导航GIT信息
 Plug 'Xuyuanp/nerdtree-git-plugin'
+
 " 文件查找
 Plug 'kien/ctrlp.vim'
+
 " 自动生成ctags
 Plug 'ludovicchabant/vim-gutentags'
+
 " 多语言语法纠错
 Plug 'vim-syntastic/syntastic'
+
 " CPP语法高亮
 Plug 'octol/vim-cpp-enhanced-highlight'
+
 " CPP格式化
 Plug 'rhysd/vim-clang-format'
+
 " 代码结构展示
 Plug 'preservim/tagbar'
+
 " GOLANG插件
 Plug 'fatih/vim-go'
 Plug 'volgar1x/vim-gocode'
+
 " 状态栏插件
 Plug 'vim-airline/vim-airline'
+
 " 简单自动补全
 Plug 'maxboisvert/vim-simple-complete'
+
+" 高级自动补全
+"Plug 'ycm-core/YouCompleteMe'
+
 " LeaderF搜索
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
-" Markdown插件
-Plug 'iamcco/mathjax-support-for-mkdp'
-Plug 'iamcco/markdown-preview.vim'
+
 " 代码GIT提交信息插件
 Plug 'zivyangll/git-blame.vim'
+
 " 显示多余空格
 Plug 'ntpeters/vim-better-whitespace'
-" 自动对齐
-Plug 'godlygeek/tabular'
+
+" Doxygen注释
+Plug 'vim-scripts/DoxygenToolkit.vim'
+
 " solarized
 Plug 'altercation/vim-colors-solarized'
+
 " codedark
 Plug 'tomasiser/vim-code-dark'
 call plug#end()
@@ -45,27 +62,21 @@ call plug#end()
 " 插件: scrooloose/nerdtree
 map <F3> :NERDTreeMirror<CR>
 map <F3> :NERDTreeToggle<CR>
-
+" 显示行号信息
 let NERDTreeShowLineNumbers=1
-
 " 打开文件时是否显示目录
 let NERDTreeAutoCenter=1
-
 " 是否显示隐藏文件
 let NERDTreeShowHidden=0
-
 " 设置宽度
 let NERDTreeWinSize=31
-
 " 忽略一下文件的显示
 let NERDTreeIgnore=['\.pyc','\~$','\.swp']
-
 " 打开 vim 文件及显示书签列表
 let NERDTreeShowBookmarks=2
-
 " 在终端启动vim时，共享NERDTree
 let g:nerdtree_tabs_open_on_console_startup=1
-
+" Git改动信息图标
 let g:NERDTreeIndicatorMapCustom = {
     \ "Modified"  : "✹",
     \ "Staged"    : "✚",
@@ -99,7 +110,6 @@ let g:gutentags_project_root = ['.root']
 
 " 所生成的数据文件的名称
 let g:gutentags_ctags_tagfile = '.tags'
-
 " 将自动生成的tags文件放入~/.cache/tags，避免污染工程目录
 let s:vim_tags = expand('~/.cache/tags')
 let g:gutentags_cache_dir = s:vim_tags
@@ -149,6 +159,7 @@ let g:syntastic_go_checkers = ['go']
 let g:syntastic_cpp_checkers = ['gcc']
 let g:syntastic_cpp_compiler = 'gcc'
 let g:syntastic_cpp_compiler_options = '-std=c++11'
+"let g:syntastic_c_include_dirs = ['']
 
 " 插件: maxboisvert/vim-simple-complete
 set complete-=t
@@ -215,7 +226,25 @@ noremap <Leader>GG :<C-U><C-R>=printf("Leaderf rg --stayOpen -e %s ", expand("<c
 " noremap <Leader>gg :<C-U><C-R>=printf("Leaderf! rg --stayOpen -e %s -g *.{h,cpp}", expand("<cword>"))<CR>
 
 " 设置窗口高度
- let g:Lf_WindowHeight = 0.20
+let g:Lf_WindowHeight = 0.20
+
+" 插件: vim-scripts/DoxygenToolkit.vim
+let g:DoxygenToolkit_briefTag_funcName = "yes"
+let g:doxygenToolkit_authorName="meloji"
+let g:DoxygenToolkit_briefTag_pre = "@brief "
+let g:DoxygenToolkit_paramTag_pre = "@param "
+let g:DoxygenToolkit_returnTag = "@return "
+let g:DoxygenToolkit_throwTag_pre = "@throw " " @exception is also valid
+let g:DoxygenToolkit_fileTag = "@file "
+let g:DoxygenToolkit_dateTag = "@date "
+let g:DoxygenToolkit_authorTag = "@author "
+let g:DoxygenToolkit_versionTag = "@version "
+let g:DoxygenToolkit_blockTag = "@name "
+let g:DoxygenToolkit_classTag = "@class "
+let g:doxygen_enhanced_color = 1
+
+" Lincese
+"let g:DoxygenToolkit_licenseTag = "Copyright..."
 
 " 终端编码设置
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
@@ -241,14 +270,9 @@ if has("autocmd")
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif " 记录上一次浏览位置
 endif
 
-" 主题设置
+" 主题设置(深色)
 syntax enable
-set background=dark " light
+set background=dark
 
-" solarized
 " colorscheme solarized
-" let g:solarized_termcolors=256
-
-" codedark
 colorscheme codedark
-let g:airline_theme = 'codedark'
