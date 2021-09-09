@@ -273,6 +273,7 @@ endif
 " 主题设置(深色)
 syntax enable
 set background=dark
-
-" colorscheme solarized
 colorscheme codedark
+
+" 可以启用其他个性化主题
+" colorscheme solarized
