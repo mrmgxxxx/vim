@@ -266,6 +266,8 @@ JSON、Markdown、自动对齐、匹配显示等等小插件，都比较轻量�
 
 > solarized深色主题若发现背景灰色，可通过这三个设置项尝试修复`let g:solarized_termcolors=256`, `let g:solarized_termcolors=16`, `let g:solarized_termtrans = 1`
 
+`终端配色推荐`: `Foreground: 00f900`, `Background: 002b36`
+
 ## vim-plug插件管理
 
 参见[vim-plug](https://github.com/junegunn/vim-plug)文档，进行插件的高效管理
