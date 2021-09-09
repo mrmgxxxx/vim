@@ -258,11 +258,13 @@ JSON、Markdown、自动对齐、匹配显示等等小插件，都比较轻量�
 
 ## 主题配色
 
-默认集成了VSCode深色主题，可以自己配置，基于Vim-Plug很简单:
+默认集成了Base16系列深色主题，可以自己配置，基于Vim-Plug很简单:
 
 ![avatar](https://cloud.githubusercontent.com/assets/10374559/23341312/1961f416-fc45-11e6-83ba-d7180c5fdd6d.png)
 
 `个人推荐配色`:https://github.com/altercation/vim-colors-solarized
+
+> solarized深色主题若发现背景灰色，可通过这三个设置项尝试修复`let g:solarized_termcolors=256`, `let g:solarized_termcolors=16`, `let g:solarized_termtrans = 1`
 
 ## vim-plug插件管理
 

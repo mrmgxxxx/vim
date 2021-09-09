@@ -276,4 +276,4 @@ set background=dark
 colorscheme codedark
 
 " 可以启用其他个性化主题
-" colorscheme solarized
+"colorscheme solarized
