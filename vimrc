@@ -230,7 +230,7 @@ let g:Lf_WindowHeight = 0.20
 
 " 插件: vim-scripts/DoxygenToolkit.vim
 let g:DoxygenToolkit_briefTag_funcName = "yes"
-let g:doxygenToolkit_authorName="meloji"
+let g:doxygenToolkit_authorName="setup-your-name"
 let g:DoxygenToolkit_briefTag_pre = "@brief "
 let g:DoxygenToolkit_paramTag_pre = "@param "
 let g:DoxygenToolkit_returnTag = "@return "
