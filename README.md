@@ -154,10 +154,12 @@ ll ~/.vim/plugged/YouCompleteMe/third_party/ycmd/third_party/clang/lib/
 mv ~/.vim/plugged/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py ~/.vim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/
 
 # 解决libstdc++.so ：version ‘ GLIBCXX_3.4.26’ not found
-安装或下载最新的libstdc++.so.6.0.26（支持到GLIBCXX_3.4.26），放到/usr/lib/x86_64-linux-gnu, 软连接：
-ln -sf libstdc++.so.6.0.26 libstdc++.so.6
+安装或下载最新的libstdc++.so.6.0.26（支持到GLIBCXX_3.4.26）:
+cp -rf libstdc++.so.6.0.26 /usr/lib64
+rm /usr/lib64/libstdc++.so.6
+ln -s /usr/lib64/libstdc++.so.6.0.26 /usr/lib64/libstdc++.so.6
 
-在仓库中提供一个下载编译好的libstdc++.so.6.0.26可直接使用
+(在仓库中提供一个下载编译好的libstdc++.so.6.0.26可直接使用)
 ```
 
 `修改vimrc, 增加YCM配置内容`:
