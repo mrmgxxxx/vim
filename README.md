@@ -72,19 +72,40 @@ Plug 'tomasiser/vim-code-dark'
 ```
 
 ## 依赖安装
+> 以apt-get为例，若为yum安装则部分package名称有所差异，如dev后缀在yum下为devel, 可以使用yum search进行检索后再指定package名安装,
+> 部分package可以根据自身使用的linux发行版本差异选择基于rpm或源码安装
 
-### vim v8.2+ with python3
+gcc/g++/clang/go等主体工具结合需要安装配置好，不需要可以不安装
+
+### base
+
+```shell
+apt-get install build-essential cmake
+```
+
+### python3(optional)
+>如果不用LeaderF和YouCompleteMe插件则可以不用安装
+
+```shell
+apt-get install python36
+apt-get install python36-setuptools
+apt-get install python36-pip
+apt-get install python3-dev
+```
+
+### vim-8.2+
+>结合python3编译安装时请结合实际安装版本进行调整路径
 
 ```shell
 git clone https://github.com/vim/vim.git
 cd vim/src
+
+export LDFLAGS="-rdynamic"
 ./configure --enable-pythoninterp=yes --enable-cscope --enable-fontset --with-python3-config-dir=/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu --enable-python3interp=yes --with-python3-command=python3.6
 
 make
 make install
 ```
-
-`注意`: gcc/g++/clang/go等主体工具自己需要用什么就提前安装配置好
 
 ### YouCompleteMe安装教程(以ubuntu为示例)
 
@@ -105,7 +126,7 @@ ll /usr/lib/x86_64-linux-gnu/libc++abi*
 ln -sf ll /usr/lib/x86_64-linux-gnu/libc++* /usr/local/lib/
 
 # 安装YCM
-apt install build-essential cmake vim-nox python3-dev
+apt-get install build-essential cmake vim-nox
 apt-get install g++-8
 update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 700 --slave /usr/bin/g++ g++ /usr/bin/g++-7
 update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 800 --slave /usr/bin/g++ g++ /usr/bin/g++-8
