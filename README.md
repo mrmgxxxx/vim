@@ -77,6 +77,7 @@ apt-get install python36-setuptools
 apt-get install python36-pip
 apt-get install python3-dev
 ```
+
 `推荐源码安装`:
 
 ```shell
@@ -104,13 +105,11 @@ export LDFLAGS="-rdynamic"
 make
 make install
 ```
+### YouCompleteMe安装教程
 
-### YouCompleteMe安装教程(以ubuntu为示例)
-
-`安装`:
+#### 安装llvm/clang
 
 ```shell
-# 安装llvm clang
 apt-get install clang
 apt-get install libclang-dev
 apt-get install llvm
@@ -118,7 +117,7 @@ apt-get install libc++-dev
 apt-get install libc++abi-dev
 ```
 
-`推荐源码安装llvm`:
+`推荐源码安装`:
 
 ```shell
 git clone https://github.com/llvm/llvm-project.git
@@ -127,13 +126,18 @@ cmake -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_RTTI=ON -DLLVM_ENABLE_PROJECTS="c
 make install
 ```
 
-# 检查llvm clang安装
+`检查llvm clang安装`:
+
+```shell
 clang -v
 ll /usr/lib/x86_64-linux-gnu/libc++*
 ll /usr/lib/x86_64-linux-gnu/libc++abi*
 ln -sf ll /usr/lib/x86_64-linux-gnu/libc++* /usr/local/lib/
+```
 
-# 安装YCM
+#### 安装YCM插件
+
+```shell
 apt-get install build-essential cmake vim-nox
 apt-get install g++-8
 update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 700 --slave /usr/bin/g++ g++ /usr/bin/g++-7
@@ -144,7 +148,7 @@ cd ~/.vim/plugged/YouCompleteMe/third_party/ycmd/clang_archives/
 mv libclang-12.0.0-x86_64-unknown-linux-gnu.tar.bz2 mlibclang-12.0.0-x86_64-unknown-linux-gnu.tar.bz2
 wget https://github.com/ycm-core/llvm/releases/download/12.0.0/libclang-12.0.0-x86_64-unknown-linux-gnu.tar.bz2
 
-# 安装YCM
+# 配置安装YCM
 cd ~/.vim/plugged/YouCompleteMe && python3 install.py --clang-completer
 ll ~/.vim/plugged/YouCompleteMe/third_party/ycmd/third_party/clang/lib/
 mv ~/.vim/plugged/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py ~/.vim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/
@@ -156,7 +160,7 @@ ln -sf libstdc++.so.6.0.26 libstdc++.so.6
 在仓库中提供一个下载编译好的libstdc++.so.6.0.26可直接使用
 ```
 
-`配置vimrc`:
+`修改vimrc, 增加YCM配置内容`:
 
 ```shell
 let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
