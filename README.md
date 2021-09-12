@@ -1,16 +1,8 @@
-个人Vim插件配置整理
-
-## 依赖
-
-- vim8: 仅支持vim version 8+版本;
-- ctags: 用于生成符号列表;
+个人Vim8插件配置整理
 
 ## 安装
->安装之前自行备份好旧配置，清理HOME目录下的所有以`.vim`起始的文件和目录，以免新旧配置相关影响效果
 
-```shell
-sh install.sh
-```
+安装之前自行备份好旧配置，清理HOME目录下的所有以`.vim`起始的文件和目录，以免新旧配置相关影响效果
 
 ## 默认集成插件
 
@@ -72,16 +64,9 @@ Plug 'tomasiser/vim-code-dark'
 ```
 
 ## 依赖安装
-> 以apt-get为例，若为yum安装则部分package名称有所差异，如dev后缀在yum下为devel, 可以使用yum search进行检索后再指定package名安装,
-> 部分package可以根据自身使用的linux发行版本差异选择基于rpm或源码安装
+> 部分package可根据自身使用的linux发行版本差异选择基于rpm或源码安装
 
 gcc/g++/clang/go等主体工具结合需要安装配置好，不需要可以不安装
-
-### base
-
-```shell
-apt-get install build-essential cmake
-```
 
 ### python3(optional)
 >如果不用LeaderF和YouCompleteMe插件则可以不用安装
@@ -92,8 +77,21 @@ apt-get install python36-setuptools
 apt-get install python36-pip
 apt-get install python3-dev
 ```
+`推荐源码安装`:
 
-### vim-8.2+
+```shell
+apt-get install build-essential zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel
+
+wget http://python.org/ftp/python/3.6.1/Python-3.6.1.tar.xz
+tar xf Python-3.6.1.tar.xz
+cd Python-3.6.1
+
+./configure --prefix=/usr/local/python3
+make & make install
+ln -s /usr/local/python3/bin/python3 /usr/bin/python3
+```
+
+### vim-v8.2+
 >结合python3编译安装时请结合实际安装版本进行调整路径
 
 ```shell
@@ -118,6 +116,16 @@ apt-get install libclang-dev
 apt-get install llvm
 apt-get install libc++-dev
 apt-get install libc++abi-dev
+```
+
+`推荐源码安装llvm`:
+
+```shell
+git clone https://github.com/llvm/llvm-project.git
+cd llvm-project & mkdir build & cd build
+cmake -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_RTTI=ON -DLLVM_ENABLE_PROJECTS="clang;libcxx;libcxxabi" -G "Unix Makefiles" ../llvm
+make install
+```
 
 # 检查llvm clang安装
 clang -v
@@ -235,7 +243,7 @@ let g:ycm_filetype_whitelist = {
 
 `项目管理`:
 
-默认配置了`['.root', '.svn', '.git', '.project', '.vimex', '.vim']`项目文件列表，打开vim时会从当前目录开始向上递归查找这些文件，找到任意一个目标文件后则停止查找，并以找到位置作为项目根目录，后续任何源文件变动都会基于vim8的异步机制为项目实时生成tags，作为跳转和代码结构展示的依据。
+默认配置了`['.root']`作为项目文件， 也可以根据需要增加列表:`['.root', '.svn', '.git', '.project', '.vimex', '.vim']`，打开vim时会从当前目录开始向上递归查找这些文件，找到任意一个目标文件后则停止查找，并以找到位置作为项目根目录，后续任何源文件变动都会基于vim8的异步机制为项目实时生成tags，作为跳转和代码结构展示的依据。
 
 生成的tags根据配置会保存在~/.cache下，并以你的项目路径作为名词规则，这样不会污染你的项目目录数据。整体的效果就是：无需手动执行ctags命令，只要目录中有特定的project文件即可自动完成生成，使用者无需关心修改完代码后的更新问题。
 
