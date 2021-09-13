@@ -29,7 +29,6 @@ Plug 'preservim/tagbar'
 
 " GOLANG插件
 Plug 'fatih/vim-go'
-Plug 'volgar1x/vim-gocode'
 
 " 状态栏插件
 Plug 'vim-airline/vim-airline'
