@@ -133,8 +133,9 @@ let g:cpp_experimental_template_highlight = 1
 let g:cpp_concepts_highlight = 1
 
 " 插件: fatih/vim-go
-imap <F5> <C-x><C-o>
-au filetype go inoremap <buffer> . .<C-x><C-o>
+" 使用YCM补全时不要开启这两项，会造成冲突
+"imap <F5> <C-x><C-o>
+"au filetype go inoremap <buffer> . .<C-x><C-o>
 let g:go_fmt_command = "goimports"
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
