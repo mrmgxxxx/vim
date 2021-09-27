@@ -195,6 +195,8 @@ let g:clang_format#filetype_style_options = {
         \     "FixNamespaceComments" : "true",
         \     "PointerAlignment" : "Left",
         \     "BreakBeforeBraces" : "Custom",
+        \     "SpacesInAngles":"false",
+        \     "AllowShortFunctionsOnASingleLine" : "Inline",
         \     "BraceWrapping" : {
         \       "AfterUnion" : "true",
         \       "AfterStruct" : "true",
@@ -205,8 +207,7 @@ let g:clang_format#filetype_style_options = {
         \       "BeforeCatch" : "true",
         \       "BeforeElse" : "true",
         \       "AfterNamespace" : "false"
-        \     },
-        \     "AllowShortFunctionsOnASingleLine" : "Inline"
+        \     }
         \   }
         \ }
 
