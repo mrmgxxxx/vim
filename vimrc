@@ -174,6 +174,8 @@ autocmd FileType c ClangFormatAutoEnable
 autocmd FileType h ClangFormatAutoEnable
 autocmd FileType cpp ClangFormatAutoEnable
 autocmd FileType hpp ClangFormatAutoEnable
+autocmd FileType cc ClangFormatAutoEnable
+autocmd FileType hh ClangFormatAutoEnable
 autocmd FileType cxx ClangFormatAutoEnable
 autocmd FileType hxx ClangFormatAutoEnable
 let g:clang_format#auto_format=1
