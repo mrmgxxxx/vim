@@ -107,7 +107,7 @@ let g:gutentags_add_default_project_roots = 0
 let g:gutentags_project_root = ['.root']
 
 " 所生成的数据文件的名称
-let g:gutentags_ctags_tagfile = '.tags'
+let g:gutentags_ctags_tagfile = 'gutentags'
 " 将自动生成的tags文件放入~/.cache/tags，避免污染工程目录
 let s:vim_tags = expand('~/.cache/tags')
 let g:gutentags_cache_dir = s:vim_tags
