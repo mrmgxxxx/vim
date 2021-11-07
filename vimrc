@@ -94,7 +94,6 @@ let g:NERDTreeShowIgnoredStatus = 1
 let g:gutentags_enabled = 1
 
 " 关闭默认加入工程文件列表，完全按照下面自行定义的列表进行工程根目录搜索
-" 默认会加入.git、.svn等工程文件名匹配
 let g:gutentags_add_default_project_roots = 0
 
 " gutentags搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
