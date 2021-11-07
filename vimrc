@@ -117,6 +117,16 @@ if !isdirectory(s:vim_tags)
    silent! call mkdir(s:vim_tags, 'p')
 endif
 
+" 开启ctags/gtags支持
+let g:gutentags_modules = []
+if executable('ctags')
+    " 如果想要能够支持更高的C++11以上语法特性, 则需要安装universal ctags(https://github.com/universal-ctags/ctag)
+    let g:gutentags_modules += ['ctags']
+endif
+if executable('gtags-cscope') && executable('gtags')
+    let g:gutentags_modules += ['gtags_cscope']
+endif
+
 " 配置ctags的参数
 let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+pxI']
