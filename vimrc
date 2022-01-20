@@ -204,6 +204,7 @@ let g:clang_format#filetype_style_options = {
         \     "AccessModifierOffset" : -4,
         \     "IndentCaseLabels" : "false",
         \     "FixNamespaceComments" : "true",
+        \     "DerivePointerAlignment" : "true",
         \     "PointerAlignment" : "Left",
         \     "BreakBeforeBraces" : "Custom",
         \     "SpacesInAngles":"false",
@@ -272,6 +273,7 @@ set ts=4            " tab替换空格宽度
 set expandtab
 set shiftwidth=4
 set autoindent      " 自动indent
+set smartindent     " 智能indent
 set showmatch       " 显示括号等匹配
 set colorcolumn=120 " 设置中线宽度
 set cursorline      " 十字光标对齐线

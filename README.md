@@ -175,8 +175,8 @@ let g:ycm_seed_identifiers_with_syntax=1
 set completeopt=longest,menu
 
 " 不喜欢候选框乱弹的话可以打开这两行
-"set completeopt=menu,menuone
-"let g:ycm_add_preview_to_completeopt = 0
+set completeopt=menu,menuone
+let g:ycm_add_preview_to_completeopt = 0
 
 " 离开插入模式后自动关闭预览窗口
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
