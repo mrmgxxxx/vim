@@ -256,7 +256,7 @@ let g:DoxygenToolkit_blockTag = "@name "
 let g:DoxygenToolkit_classTag = "@class "
 let g:doxygen_enhanced_color = 1
 
-" Lincese
+" license
 "let g:DoxygenToolkit_licenseTag = "Copyright..."
 
 " 终端编码设置
