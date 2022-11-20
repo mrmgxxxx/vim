@@ -109,6 +109,8 @@ make && make install
 
 #### 安装llvm/clang
 
+建议安装clang-format version 11+，低版本的对于一些特性支持的不够好。
+
 ```shell
 apt-get install clang
 apt-get install libclang-dev
