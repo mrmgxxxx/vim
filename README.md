@@ -32,6 +32,15 @@ cp -rf vimrc ~/.vimrc
 
 ## 安装fzf(搜索插件依赖)
 
+安装ag：
+
+```shell
+// https://github.com/ggreer/the_silver_searcher
+yum install the_silver_searcher
+```
+
+安装fzf：
+
 ```shell
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
@@ -40,19 +49,8 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ## 安装llvm/clang(代码格式化与分析依赖)
 
 ```shell
-apt-get install clang
-apt-get install libclang-dev
-apt-get install llvm
-apt-get install libc++-dev
-apt-get install libc++abi-dev
-```
-
-## 安装高版本GCC(可选)
-
-```shell
-apt-get install g++-7
-update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 700 --slave /usr/bin/g++ g++ /usr/bin/g++-7
-source /opt/rh/devtoolset-7/enable
+yum -y install clang
+yum -y install llvm
 ```
 
 ## 主题配色
