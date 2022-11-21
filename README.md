@@ -82,19 +82,6 @@ apt-get install python36-pip
 apt-get install python3-dev
 ```
 
-`推荐源码安装`:
-
-```shell
-apt-get install build-essential zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel
-
-wget http://python.org/ftp/python/3.6.1/Python-3.6.1.tar.xz
-tar xf Python-3.6.1.tar.xz
-cd Python-3.6.1
-
-./configure --enable-shared
-make && make install
-```
-
 ### vim-v8.2+
 >结合python3编译安装时请结合实际安装版本进行调整路径
 
@@ -102,7 +89,7 @@ make && make install
 git clone https://github.com/vim/vim.git
 cd vim/src
 
-./configure --enable-pythoninterp=yes --enable-cscope --enable-fontset --with-python3-config-dir=/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu --enable-python3interp=yes --with-python3-command=python3.6
+./configure --enable-cscope --enable-fontset --enable-python3interp=yes --with-python3-command=python3.6
 make && make install
 ```
 ### YouCompleteMe安装教程
