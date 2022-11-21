@@ -1,16 +1,11 @@
 """"插件列表""""
 call plug#begin('~/.vim/plugged')
 " 目录树
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
-" 目录树导航优化
-Plug 'jistr/vim-nerdtree-tabs'
-
-" 目录树导航GIT信息
-Plug 'Xuyuanp/nerdtree-git-plugin'
-
-" 文件查找
-Plug 'kien/ctrlp.vim'
+" 关键字搜索和文件查找
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 " 自动生成ctags
 Plug 'ludovicchabant/vim-gutentags'
@@ -21,11 +16,8 @@ Plug 'vim-syntastic/syntastic'
 " CPP语法高亮
 Plug 'octol/vim-cpp-enhanced-highlight'
 
-" CPP格式化
+" 代码格式化
 Plug 'rhysd/vim-clang-format'
-
-" 代码结构展示
-Plug 'preservim/tagbar'
 
 " GOLANG插件
 Plug 'fatih/vim-go'
@@ -35,12 +27,6 @@ Plug 'vim-airline/vim-airline'
 
 " 简单自动补全
 Plug 'maxboisvert/vim-simple-complete'
-
-" 高级自动补全
-"Plug 'ycm-core/YouCompleteMe'
-
-" LeaderF搜索
-Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 
 " 代码GIT提交信息插件
 Plug 'zivyangll/git-blame.vim'
@@ -61,6 +47,7 @@ call plug#end()
 " 插件: scrooloose/nerdtree
 map <F3> :NERDTreeMirror<CR>
 map <F3> :NERDTreeToggle<CR>
+
 " 显示行号信息
 let NERDTreeShowLineNumbers=1
 " 打开文件时是否显示目录
@@ -71,24 +58,12 @@ let NERDTreeShowHidden=0
 let NERDTreeWinSize=31
 " 忽略一下文件的显示
 let NERDTreeIgnore=['\.pyc','\~$','\.swp']
-" 打开 vim 文件及显示书签列表
-let NERDTreeShowBookmarks=2
-" 在终端启动vim时，共享NERDTree
-let g:nerdtree_tabs_open_on_console_startup=1
-" Git改动信息图标
-let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ 'Ignored'   : '☒',
-    \ "Unknown"   : "?"
-    \ }
-let g:NERDTreeShowIgnoredStatus = 1
+
+" 插件: junegunn/fzf.vim
+" 搜索当前单词
+nnoremap <silent> <Leader>gg :Ag <C-R><C-W><CR>
+" 搜索文件
+nnoremap <silent> <c-p> :Files <CR>
 
 " 插件: ludovicchabant/vim-gutentags
 let g:gutentags_enabled = 1
@@ -126,37 +101,10 @@ endif
 if executable('gtags-cscope') && executable('gtags')
     let g:gutentags_modules += ['gtags_cscope']
 endif
-
 " 配置ctags的参数
 let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+pxI']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-
-" 插件: octol/vim-cpp-enhanced-highlight
-let g:cpp_class_scope_highlight = 1
-let g:cpp_member_variable_highlight = 1
-let g:cpp_class_decl_highlight = 1
-let g:cpp_posix_standard = 1
-let g:cpp_experimental_simple_template_highlight = 1
-let g:cpp_experimental_template_highlight = 1
-let g:cpp_concepts_highlight = 1
-
-" 插件: fatih/vim-go
-" 使用YCM补全时不要开启这两项，会造成冲突
-"imap <F5> <C-x><C-o>
-"au filetype go inoremap <buffer> . .<C-x><C-o>
-let g:go_fmt_command = "goimports"
-let g:go_highlight_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_chan_whitespace_error = 0
-let g:go_highlight_methods = 1
-let g:go_highlight_generate_tags = 1
-let g:go_highlight_diagnostic_errors = 1
-let g:go_highlight_diagnostic_warnings = 1
 
 " 插件: vim-syntastic/syntastic
 let g:syntastic_check_on_wq=1
@@ -170,12 +118,14 @@ let g:syntastic_cpp_compiler = 'gcc'
 let g:syntastic_cpp_compiler_options = '-std=c++11'
 "let g:syntastic_c_include_dirs = ['']
 
-" 插件: maxboisvert/vim-simple-complete
-set complete-=t
-set complete-=i
-
-" 插件: zivyangll/git-blame.vim
-nnoremap <Leader>f :<C-u>call gitblame#echo()<CR>
+" 插件: octol/vim-cpp-enhanced-highlight
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_class_decl_highlight = 1
+let g:cpp_posix_standard = 1
+let g:cpp_experimental_simple_template_highlight = 1
+let g:cpp_experimental_template_highlight = 1
+let g:cpp_concepts_highlight = 1
 
 " 插件: rhysd/vim-clang-format
 let g:clang_format#command = 'clang-format'
@@ -227,19 +177,25 @@ let g:clang_format#filetype_style_options = {
 " "AlignConsecutiveAssignments" : "true"
 " "AlignConsecutiveDeclarations" : "true"
 
-" 插件: preservim/tagbar
-nmap <F4> :TagbarToggle<CR>
+" 插件: fatih/vim-go
+" 使用YCM补全时不要开启这两项，会造成冲突
+"imap <F5> <C-x><C-o>
+"au filetype go inoremap <buffer> . .<C-x><C-o>
+let g:go_fmt_command = "goimports"
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_chan_whitespace_error = 0
+let g:go_highlight_methods = 1
+let g:go_highlight_generate_tags = 1
+let g:go_highlight_diagnostic_errors = 1
+let g:go_highlight_diagnostic_warnings = 1
 
-" 插件: Yggdroot/LeaderF
-" search word under cursor, the pattern is treated as regex, and enter normal mode directly
-noremap <Leader>gg :<C-U><C-R>=printf("Leaderf! rg --stayOpen -e %s ", expand("<cword>"))<CR>
-noremap <Leader>GG :<C-U><C-R>=printf("Leaderf rg --stayOpen -e %s ", expand("<cword>"))<CR>
-
-" search word under cursor in *.h and *.cpp files.
-" noremap <Leader>gg :<C-U><C-R>=printf("Leaderf! rg --stayOpen -e %s -g *.{h,cpp}", expand("<cword>"))<CR>
-
-" 设置窗口高度
-let g:Lf_WindowHeight = 0.20
+" 插件: zivyangll/git-blame.vim
+nnoremap <Leader>f :<C-u>call gitblame#echo()<CR>
 
 " 插件: vim-scripts/DoxygenToolkit.vim
 let g:DoxygenToolkit_briefTag_funcName = "yes"
@@ -247,7 +203,7 @@ let g:doxygenToolkit_authorName="setup-your-name"
 let g:DoxygenToolkit_briefTag_pre = "@brief "
 let g:DoxygenToolkit_paramTag_pre = "@param "
 let g:DoxygenToolkit_returnTag = "@return "
-let g:DoxygenToolkit_throwTag_pre = "@throw "
+let g:DoxygenToolkit_throwTag_pre = "@throw " " @exception is also valid
 let g:DoxygenToolkit_fileTag = "@file "
 let g:DoxygenToolkit_dateTag = "@date "
 let g:DoxygenToolkit_authorTag = "@author "
@@ -256,7 +212,7 @@ let g:DoxygenToolkit_blockTag = "@name "
 let g:DoxygenToolkit_classTag = "@class "
 let g:doxygen_enhanced_color = 1
 
-" license
+" Lincese
 "let g:DoxygenToolkit_licenseTag = "Copyright..."
 
 " 终端编码设置
@@ -289,5 +245,6 @@ syntax enable
 set background=dark
 colorscheme codedark
 
+" 可以启用其他个性化主题
 let g:solarized_termtrans = 1
 colorscheme solarized
