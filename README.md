@@ -60,10 +60,10 @@ Plug 'ntpeters/vim-better-whitespace'
 " Doxygen注释
 Plug 'vim-scripts/DoxygenToolkit.vim'
 
-" solarized
+" solarized主题配色
 Plug 'altercation/vim-colors-solarized'
 
-" codedark
+" codedark主题配色
 Plug 'tomasiser/vim-code-dark'
 ```
 
@@ -83,7 +83,6 @@ apt-get install python3-dev
 ```
 
 ### vim-v8.2+
->结合python3编译安装时请结合实际安装版本进行调整路径
 
 ```shell
 git clone https://github.com/vim/vim.git
@@ -109,10 +108,9 @@ apt-get install libc++abi-dev
 `安装高版本C++编译器`:
 
 ```shell
-apt-get install g++-8
+apt-get install g++-7
 update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 700 --slave /usr/bin/g++ g++ /usr/bin/g++-7
-update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 800 --slave /usr/bin/g++ g++ /usr/bin/g++-8
-source /opt/rh/devtoolset-8/enable
+source /opt/rh/devtoolset-7/enable
 ```
 
 #### 安装YCM插件
