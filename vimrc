@@ -51,10 +51,10 @@ Plug 'ntpeters/vim-better-whitespace'
 " Doxygen注释
 Plug 'vim-scripts/DoxygenToolkit.vim'
 
-" solarized
+" 主题配色: solarized
 Plug 'altercation/vim-colors-solarized'
 
-" codedark
+" 主题配色: codedark
 Plug 'tomasiser/vim-code-dark'
 call plug#end()
 
@@ -247,7 +247,7 @@ let g:doxygenToolkit_authorName="setup-your-name"
 let g:DoxygenToolkit_briefTag_pre = "@brief "
 let g:DoxygenToolkit_paramTag_pre = "@param "
 let g:DoxygenToolkit_returnTag = "@return "
-let g:DoxygenToolkit_throwTag_pre = "@throw " " @exception is also valid
+let g:DoxygenToolkit_throwTag_pre = "@throw "
 let g:DoxygenToolkit_fileTag = "@file "
 let g:DoxygenToolkit_dateTag = "@date "
 let g:DoxygenToolkit_authorTag = "@author "
@@ -289,5 +289,5 @@ syntax enable
 set background=dark
 colorscheme codedark
 
-" 可以启用其他个性化主题
-"colorscheme solarized
+let g:solarized_termtrans = 1
+colorscheme solarized
