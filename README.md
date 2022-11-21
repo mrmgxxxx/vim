@@ -86,7 +86,7 @@ apt-get install python3-dev
 
 ```shell
 git clone https://github.com/vim/vim.git
-cd vim/src
+cd vim/src && git checkout v8.2.3430
 
 ./configure --enable-cscope --enable-fontset --enable-python3interp=yes --with-python3-command=python3.6
 make && make install
