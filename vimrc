@@ -160,6 +160,7 @@ let g:clang_format#filetype_style_options = {
         \     "SpacesInAngles":"false",
         \     "AllowShortFunctionsOnASingleLine" : "Inline",
         \     "BraceWrapping" : {
+        \       "AfterCaseLabel" : "true",
         \       "AfterUnion" : "true",
         \       "AfterStruct" : "true",
         \       "AfterClass" : "true",
