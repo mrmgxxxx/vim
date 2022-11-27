@@ -137,6 +137,8 @@ autocmd FileType cc ClangFormatAutoEnable
 autocmd FileType hh ClangFormatAutoEnable
 autocmd FileType cxx ClangFormatAutoEnable
 autocmd FileType hxx ClangFormatAutoEnable
+" detects the style file like .clang-format
+let g:clang_format#detect_style_file=0
 let g:clang_format#auto_format=1
 let g:clang_format#filetype_style_options = {
         \ "proto" : {
