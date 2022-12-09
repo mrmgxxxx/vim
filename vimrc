@@ -237,6 +237,9 @@ set showmatch       " 显示括号等匹配
 set colorcolumn=120 " 设置中线宽度
 set cursorline      " 十字光标对齐线
 set cursorcolumn    " 十字光标对齐线
+set complete-=t     " 防止vim自动补全冲突
+set complete-=i     " 防止vim自动补全冲突
+set shortmess+=c    " 清理vim自动补全干扰信息
 
 " 其他设置
 if has("autocmd")
