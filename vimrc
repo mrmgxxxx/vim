@@ -97,7 +97,7 @@ endif
 " 开启ctags/gtags支持
 let g:gutentags_modules = []
 if executable('ctags')
-    " 如果想要能够支持更高的C++11以上语法特性, 则需要安装universal ctags(https://github.com/universal-ctags/ctag)
+    " 如果想要能够支持更高的C++11以上语法特性, 则需要安装universal ctags(https://github.com/universal-ctags/ctags)
     let g:gutentags_modules += ['ctags']
 endif
 if executable('gtags-cscope') && executable('gtags')
