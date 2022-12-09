@@ -1,5 +1,6 @@
 """"插件列表""""
 call plug#begin('~/.vim/plugged')
+
 " 目录树
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
@@ -7,11 +8,11 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
-" 自动生成ctags
+" 自动生成代码TAGS
 Plug 'ludovicchabant/vim-gutentags'
 
 " 多语言语法纠错
-Plug 'vim-syntastic/syntastic'
+Plug 'dense-analysis/ale'
 
 " CPP语法高亮
 Plug 'octol/vim-cpp-enhanced-highlight'
@@ -28,7 +29,7 @@ Plug 'vim-airline/vim-airline'
 " 简单自动补全
 Plug 'maxboisvert/vim-simple-complete'
 
-" 代码GIT提交信息插件
+" 显示GIT提交信息
 Plug 'zivyangll/git-blame.vim'
 
 " 显示多余空格
@@ -42,6 +43,7 @@ Plug 'altercation/vim-colors-solarized'
 
 " 主题配色: codedark
 Plug 'tomasiser/vim-code-dark'
+
 call plug#end()
 
 " 插件: scrooloose/nerdtree
@@ -106,17 +108,21 @@ let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+pxI']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 
-" 插件: vim-syntastic/syntastic
-let g:syntastic_check_on_wq=1
-let g:syntastic_cpp_check_header = 1
-let g:syntastic_error_symbol='✗'
-let g:syntastic_warning_symbol='►'
-let g:syntastic_enable_highlighting=1
-let g:syntastic_go_checkers = ['go']
-let g:syntastic_cpp_checkers = ['gcc']
-let g:syntastic_cpp_compiler = 'gcc'
-let g:syntastic_cpp_compiler_options = '-std=c++11'
-"let g:syntastic_c_include_dirs = ['']
+" 插件: dense-analysis/ale
+let g:ale_fix_on_save = 1
+let g:ale_sign_error = '✗'
+let g:ale_sign_warning = '⚡'
+let g:ale_cpp_gcc_options = ' -std=c++11 '
+let g:ale_cpp_clang_options = ' -std=c++11 '
+let g:ale_linters_explicit = 1
+let g:ale_linters = {
+  \   'csh': ['shell'],
+  \   'zsh': ['shell'],
+  \   'python': ['pylint'],
+  \   'go': ['gofmt', 'golint'],
+  \   'c': ['clang', 'gcc'],
+  \   'cpp': ['clang', 'g++'],
+  \ }
 
 " 插件: octol/vim-cpp-enhanced-highlight
 let g:cpp_class_scope_highlight = 1
@@ -138,7 +144,7 @@ autocmd FileType hh ClangFormatAutoEnable
 autocmd FileType cxx ClangFormatAutoEnable
 autocmd FileType hxx ClangFormatAutoEnable
 " detects the style file like .clang-format
-let g:clang_format#detect_style_file=0
+let g:clang_format#detect_style_file=1
 let g:clang_format#auto_format=1
 let g:clang_format#filetype_style_options = {
         \ "proto" : {
@@ -159,7 +165,7 @@ let g:clang_format#filetype_style_options = {
         \     "DerivePointerAlignment" : "true",
         \     "PointerAlignment" : "Left",
         \     "BreakBeforeBraces" : "Custom",
-        \     "SpacesInAngles":"false",
+        \     "SpacesInAngles" : "false",
         \     "AllowShortFunctionsOnASingleLine" : "Inline",
         \     "BraceWrapping" : {
         \       "AfterCaseLabel" : "true",
