@@ -1,7 +1,7 @@
 Personal Vim8 Configs
 =====================
 
-Before installation, back up and clean all files and directories starting with '.vim 'in the HOME directory to avoid effects related to the old and new configurations.
+Before installation, back up and clean all files and directories starting with '.vim' in the HOME directory to avoid effects related to the old and new configurations.
 
 **Install:**
 
