@@ -8,7 +8,7 @@ Before installation, back up and clean all files and directories starting with '
 Run the command to install and config your vim shit ~
 
 ```sh
-wget -N https://raw.githubusercontent.com/mrmgxxxx/vim/master/install.sh | sh
+wget -O - https://raw.githubusercontent.com/mrmgxxxx/vim/master/install.sh | sh
 ```
 
 **Config:**
