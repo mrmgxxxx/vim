@@ -9,9 +9,9 @@ rm -rf $rootpath && mkdir -p $rootpath && cd $rootpath
 run_yum_cmd=0
 command -v yum >/dev/null 2>&1 || run_yum_cmd=1
 if [ "$run_yum_cmd" -ne 1 ]; then
-yum -y install gcc gcc-c++ git wget make clang llvm the_silver_searcher
+yum -y install gcc git wget make clang llvm the_silver_searcher
 else
-apt-get -y install gcc gcc-c++ git wget make clang llvm silversearcher-ag
+apt-get -y install gcc git wget make clang llvm silversearcher-ag
 fi
 
 # check local vim version
