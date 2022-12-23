@@ -1,9 +1,9 @@
-Personal Vim8 Configs
+🐸 Personal Vim8 Configs
 =====================
 
 Before installation, back up and clean all files and directories starting with '.vim' in the HOME directory to avoid effects related to the old and new configurations.
 
-**Install:**
+**👀 Install:**
 
 Run the command to install and config your vim shit ~
 
@@ -11,11 +11,11 @@ Run the command to install and config your vim shit ~
 wget -O - https://raw.githubusercontent.com/mrmgxxxx/vim/master/install.sh | sh
 ```
 
-**Config:**
+**👀 Config:**
 
 Opening vim and typing ':PlugInstall' will automatically install all vim plugs.
 
-**Others:**
+**🌈 Others:**
 
 ![avatar](https://cloud.githubusercontent.com/assets/10374559/23341312/1961f416-fc45-11e6-83ba-d7180c5fdd6d.png)
 
