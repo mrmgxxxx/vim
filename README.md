@@ -19,7 +19,7 @@ Opening vim and typing ':PlugInstall' will automatically install all vim plugs.
 
 ![avatar](https://cloud.githubusercontent.com/assets/10374559/23341312/1961f416-fc45-11e6-83ba-d7180c5fdd6d.png)
 
-Recommended Theme: https://github.com/altercation/vim-colors-solarized
+🍔 Recommended Theme: https://github.com/altercation/vim-colors-solarized
 
 ```sh
 let g:solarized_termcolors=256
@@ -27,14 +27,14 @@ let g:solarized_termcolors=16
 let g:solarized_termtrans=1
 ```
 
-Recommended Color:
+🍺 Recommended Color:
 
 ```sh
 Foreground: 00f900
 Background: 002b36
 ```
 
-Recommended Terminal:
+🍟 Recommended Terminal:
 
 ```sh
 export PS1='\[\e[32;1m\][\u@\h \W]\\$> \[\e[0m\]'
