@@ -27,7 +27,7 @@ else
         echo -e "\e[34;1m🐱  Found local vim version $version which need to upgrade version to 8.0+ ...\033[0m"
         need_install_vim=1
     else
-        echo -e "\e[34;1m👀  Local vim version $version already installed ...\033[0m"
+        echo -e "\e[34;1m👀  Local vim version $version already installed !\033[0m"
     fi
 fi
 
@@ -68,9 +68,9 @@ if [ "$need_install_fzf" -eq 1 ]; then
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf >> $rootpath/install.log 2>&1
     ~/.fzf/install --all >> $rootpath/install.log 2>&1
     version=`fzf --version | awk -F ' ' '{print $1}'`
-    echo -e "\e[34;1m🌈  Command fzf $version installed !\033[0m"
+    echo -e "\e[34;1m🌈  Command fzf $version install successfully !\033[0m"
 else
-    echo -e "\e[34;1m👀  Local fzf command already installed ...\033[0m"
+    echo -e "\e[34;1m👀  Local fzf command already installed !\033[0m"
 fi
 
 echo -e "\e[34;1m\n🐸  Enjoy It ~ \n \033[0m"
