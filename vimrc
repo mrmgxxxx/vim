@@ -38,11 +38,11 @@ Plug 'ntpeters/vim-better-whitespace'
 " Doxygen注释
 Plug 'vim-scripts/DoxygenToolkit.vim'
 
-" 主题配色: solarized
-Plug 'altercation/vim-colors-solarized'
-
 " 主题配色: codedark
 Plug 'tomasiser/vim-code-dark'
+
+" 主题配色: solarized
+Plug 'altercation/vim-colors-solarized'
 
 call plug#end()
 
@@ -255,8 +255,8 @@ endif
 " 主题设置(深色)
 syntax enable
 set background=dark
-colorscheme codedark
 
 " 可以启用其他个性化主题
-let g:solarized_termtrans = 1
-colorscheme solarized
+"colorscheme codedark
+"let g:solarized_termtrans = 1
+"colorscheme solarized
