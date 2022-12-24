@@ -57,8 +57,9 @@ cd $rootpath
 need_config_vim=0
 wget -N https://raw.githubusercontent.com/mrmgxxxx/vim/master/vimrc >> $rootpath/install.log 2>&1
 if [ -f "${HOME}/.vimrc" ]; then
-    diff $rootpath/vimrc ${HOME}/.vimrc >/dev/null 2>&1
-    if [ $? != 0 ]; then
+    newFile=`md5sum $rootpath/vimrc | awk -F ' ' '{print $1}'`
+    curFile=`md5sum ${HOME}/.vimrc | awk -F ' ' '{print $1}'`
+    if [ "$newFile" != "$curFile" ]; then
         echo -e "\e[34;1m😥  The ${HOME}/.vimrc file is not correct, reconfig vim-plug now ...\033[0m"
         need_config_vim=1
     else
