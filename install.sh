@@ -105,7 +105,7 @@ if [ "$need_config_vim" -eq 1 ]; then
     echo -e "\e[34;1m🌈  Install and config vim-plug successfully!\n\033[0m"
 fi
 
-echo -e "\e[34;1m\n🐸 🐸 🐸  Enjoy It ~ 🐸 🐸 🐸 \n \033[0m"
+echo -e "\e[34;1m🐸 🐸 🐸  Enjoy It ~ 🐸 🐸 🐸 \n\033[0m"
 
 # make the vim config effect(the tty may be broken if not do this at end)
 if [ "$need_config_vim" -eq 1 ]; then
