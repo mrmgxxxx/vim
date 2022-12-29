@@ -13,7 +13,7 @@ yum -y install gcc git wget make clang llvm the_silver_searcher >> $rootpath/ins
 else
 apt-get -y install gcc git wget make clang llvm silversearcher-ag >> $rootpath/install.log 2>&1
 fi
-echo -e "\e[34;1m🌈  Commands gcc/git/wget/make/clang/llvm/ag install successfully!\033[0m"
+echo -e "\e[34;1m🌈  Commands gcc/git/wget/make/clang/llvm/ag install successfully!\n\033[0m"
 
 # check local vim version
 need_install_vim=0
@@ -45,16 +45,16 @@ if [ "$need_install_vim" -eq 1 ]; then
     install_new_vim=0
     command -v vim >/dev/null 2>&1 || install_new_vim=1
     if [ "$install_new_vim" -eq 1 ]; then
-        echo -e "\e[34;1m😭  New vim version install failed!\033[0m"
+        echo -e "\e[34;1m😭  New vim version install failed!\n\033[0m"
         exit 1
     fi
     version=`vim --version | head -n 1 | awk -F ' ' '{print $5}'`
     major=`echo $version | awk -F '.' '{print $1}'`
     if [ $major -lt 8 ]; then
-        echo -e "\e[34;1m😭  New vim version install failed!\033[0m"
+        echo -e "\e[34;1m😭  New vim version install failed!\n\033[0m"
         exit 2
     else
-        echo -e "\e[34;1m🌈  New vim version $version install successfully!\033[0m"
+        echo -e "\e[34;1m🌈  New vim version $version install successfully!\n\033[0m"
     fi
 fi
 
@@ -71,11 +71,11 @@ if [ "$need_install_fzf" -eq 1 ]; then
     install_fzf=0
     command -v fzf >/dev/null 2>&1 || install_fzf=1
     if [ "$install_fzf" -eq 1 ]; then
-        echo -e "\e[34;1m😭  Command fzf install failed!\033[0m"
+        echo -e "\e[34;1m😭  Command fzf install failed!\n\033[0m"
         exit 1
     fi
     version=`fzf --version | awk -F ' ' '{print $1}'`
-    echo -e "\e[34;1m🌈  Command fzf $version install successfully!\033[0m"
+    echo -e "\e[34;1m🌈  Command fzf $version install successfully!\n\033[0m"
 else
     echo -e "\e[34;1m👀  Local fzf command is already installed!\033[0m"
 fi
@@ -102,7 +102,7 @@ if [ "$need_config_vim" -eq 1 ]; then
     rm -rf ${HOME}/.vim* && mkdir -p ${HOME}/.vim/autoload/
     wget -N https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim -P ${HOME}/.vim/autoload/ >> $rootpath/install.log 2>&1
     cp -rf $rootpath/vimrc ${HOME}/.vimrc
-    echo -e "\e[34;1m🌈  Install and config vim-plug successfully!\033[0m"
+    echo -e "\e[34;1m🌈  Install and config vim-plug successfully!\n\033[0m"
 fi
 
 echo -e "\e[34;1m\n🐸 🐸 🐸  Enjoy It ~ 🐸 🐸 🐸 \n \033[0m"
