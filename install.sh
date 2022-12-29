@@ -58,32 +58,6 @@ if [ "$need_install_vim" -eq 1 ]; then
     fi
 fi
 
-# check local vim-plug
-need_config_vim=0
-wget -N https://raw.githubusercontent.com/mrmgxxxx/vim/master/vimrc -P $rootpath >> $rootpath/install.log 2>&1
-if [ -f "${HOME}/.vimrc" ]; then
-    newFile=`md5sum $rootpath/vimrc | awk -F ' ' '{print $1}'`
-    curFile=`md5sum ${HOME}/.vimrc | awk -F ' ' '{print $1}'`
-    if [ "$newFile" != "$curFile" ]; then
-        echo -e "\e[34;1m😥  The ${HOME}/.vimrc file is not correct, reconfig vim-plug now ...\033[0m"
-        need_config_vim=1
-    else
-        echo -e "\e[34;1m👀  The vim-plug is already configed!\033[0m"
-    fi
-else
-    echo -e "\e[34;1m😥  Not found ${HOME}/.vimrc file, reconfig vim-plug now ...\033[0m"
-    need_config_vim=1
-fi
-
-# config vim-plug
-if [ "$need_config_vim" -eq 1 ]; then
-    rm -rf ${HOME}/.vim* && mkdir -p ${HOME}/.vim/autoload/
-    wget -N https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim -P ${HOME}/.vim/autoload/ >> $rootpath/install.log 2>&1
-    cp -rf $rootpath/vimrc ${HOME}/.vimrc
-    vim +slient +PlugInstall +qall --not-a-term
-    echo -e "\e[34;1m🌈  Install and config vim-plug successfully!\033[0m"
-fi
-
 # install fzf
 need_install_fzf=0
 command -v fzf >/dev/null 2>&1 || need_install_fzf=1
@@ -106,4 +80,32 @@ else
     echo -e "\e[34;1m👀  Local fzf command is already installed!\033[0m"
 fi
 
+# check local vim-plug
+need_config_vim=0
+wget -N https://raw.githubusercontent.com/mrmgxxxx/vim/master/vimrc -P $rootpath >> $rootpath/install.log 2>&1
+if [ -f "${HOME}/.vimrc" ]; then
+    newFile=`md5sum $rootpath/vimrc | awk -F ' ' '{print $1}'`
+    curFile=`md5sum ${HOME}/.vimrc | awk -F ' ' '{print $1}'`
+    if [ "$newFile" != "$curFile" ]; then
+        echo -e "\e[34;1m😥  The ${HOME}/.vimrc file is not correct, reconfig vim-plug now ...\033[0m"
+        need_config_vim=1
+    else
+        echo -e "\e[34;1m👀  The vim-plug is already configed!\033[0m"
+    fi
+else
+    echo -e "\e[34;1m😥  Not found ${HOME}/.vimrc file, reconfig vim-plug now ...\033[0m"
+    need_config_vim=1
+fi
+
+# config vim-plug
+if [ "$need_config_vim" -eq 1 ]; then
+    rm -rf ${HOME}/.vim* && mkdir -p ${HOME}/.vim/autoload/
+    wget -N https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim -P ${HOME}/.vim/autoload/ >> $rootpath/install.log 2>&1
+    cp -rf $rootpath/vimrc ${HOME}/.vimrc
+    echo -e "\e[34;1m🌈  Install and config vim-plug successfully!\033[0m"
+fi
+
 echo -e "\e[34;1m\n🐸 🐸 🐸  Enjoy It ~ 🐸 🐸 🐸 \n \033[0m"
+
+# make the vim config effect(the tty may be broken if not do this at end)
+vim +slient +PlugInstall +qall --not-a-term
