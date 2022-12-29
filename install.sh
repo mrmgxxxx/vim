@@ -42,11 +42,17 @@ if [ "$need_install_vim" -eq 1 ]; then
     make -j4 >> $rootpath/install.log 2>&1
     make install >> $rootpath/install.log 2>&1
 
+    install_new_vim=0
+    command -v vim >/dev/null 2>&1 || install_new_vim=1
+    if [ "$install_new_vim" -eq 1 ]; then
+        echo -e "\e[34;1m😭  New vim version install failed!\033[0m"
+        exit 1
+    fi
     version=`vim --version | head -n 1 | awk -F ' ' '{print $5}'`
     major=`echo $version | awk -F '.' '{print $1}'`
     if [ $major -lt 8 ]; then
         echo -e "\e[34;1m😭  New vim version install failed!\033[0m"
-        exit 1
+        exit 2
     else
         echo -e "\e[34;1m🌈  New vim version $version install successfully!\033[0m"
     fi
@@ -86,6 +92,14 @@ if [ "$need_install_fzf" -eq 1 ]; then
     rm -rf ${HOME}/.fzf*
     git clone --depth 1 https://github.com/junegunn/fzf.git ${HOME}/.fzf >> $rootpath/install.log 2>&1
     ${HOME}/.fzf/install --all >> $rootpath/install.log 2>&1
+    source ${HOME}/.fzf.bash
+
+    install_fzf=0
+    command -v fzf >/dev/null 2>&1 || install_fzf=1
+    if [ "$install_fzf" -eq 1 ]; then
+        echo -e "\e[34;1m😭  Command fzf install failed!\033[0m"
+        exit 1
+    fi
     version=`fzf --version | awk -F ' ' '{print $1}'`
     echo -e "\e[34;1m🌈  Command fzf $version install successfully!\033[0m"
 else
