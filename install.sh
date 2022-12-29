@@ -80,7 +80,7 @@ if [ "$need_config_vim" -eq 1 ]; then
     rm -rf ${HOME}/.vim* && mkdir -p ${HOME}/.vim/autoload/
     wget -N https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim -P ${HOME}/.vim/autoload/ >> $rootpath/install.log 2>&1
     cp -rf $rootpath/vimrc ${HOME}/.vimrc
-    vim +slient +PlugInstall +qall --not-a-term
+    vim +slient +PlugInstall +qall
     echo -e "\e[34;1m🌈  Install and config vim-plug successfully!\033[0m"
 fi
 
