@@ -109,8 +109,5 @@ echo -e "\e[34;1m🐸 🐸 🐸  Enjoy It ~ 🐸 🐸 🐸 \n\033[0m"
 
 # make the vim config effect(the workflow may be broken and stop if not do this at end)
 if [ "$need_config_vim" -eq 1 ]; then
-# effect the config
 vim +slient +PlugInstall +qall --not-a-term
-# recover the tty state
-stty sane
 fi
