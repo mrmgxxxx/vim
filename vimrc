@@ -23,9 +23,6 @@ Plug 'rhysd/vim-clang-format'
 " GOLANG插件
 Plug 'fatih/vim-go'
 
-" 状态栏插件
-Plug 'vim-airline/vim-airline'
-
 " 简单自动补全
 Plug 'maxboisvert/vim-simple-complete'
 
@@ -38,9 +35,6 @@ Plug 'ntpeters/vim-better-whitespace'
 " Doxygen注释
 Plug 'vim-scripts/DoxygenToolkit.vim'
 
-" 主题配色: codedark
-Plug 'tomasiser/vim-code-dark'
-
 " 主题配色: solarized
 Plug 'altercation/vim-colors-solarized'
 
@@ -49,17 +43,9 @@ call plug#end()
 " 插件: scrooloose/nerdtree
 map <F3> :NERDTreeMirror<CR>
 map <F3> :NERDTreeToggle<CR>
-
-" 显示行号信息
-let NERDTreeShowLineNumbers=1
-" 打开文件时是否显示目录
-let NERDTreeAutoCenter=1
-" 是否显示隐藏文件
-let NERDTreeShowHidden=0
-" 设置宽度
 let NERDTreeWinSize=31
-" 忽略一下文件的显示
-let NERDTreeIgnore=['\.pyc','\~$','\.swp']
+let NERDTreeAutoCenter=1
+let NERDTreeShowLineNumbers=1
 
 " 插件: junegunn/fzf.vim
 " 搜索当前单词
@@ -69,20 +55,9 @@ nnoremap <silent> <c-p> :Files <CR>
 
 " 插件: ludovicchabant/vim-gutentags
 let g:gutentags_enabled = 1
-
 " 关闭默认加入工程文件列表，完全按照下面自行定义的列表进行工程根目录搜索
 let g:gutentags_add_default_project_roots = 0
-
-" gutentags搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
-" 注意混合项目时（多个含有工程文件的文件夹通知存在），在上层目录操作可能无法实现跳转,
-" 很多时候项目中都含有.git，这种情况下需要注意下项目根目录位置, 根据需要灵活修改这里的配置
-" 我的做法是在常规模式下不会加入.git等配置，只会保留.root的匹配，自行控制项目根目录
-" 举个例子：目录下有两个子目录，这两个子目录都是单独的仓库有各自的.git文件，这种情况下每个目录下
-" 会使用各自目录下的tags文件，这是两者之间可能无法互相跳转，需要让他们都是用上层根目录的tags来保证
-" 两者可以相互关联跳转定义
-" 遇到无法正确跳转匹配时，可以再vim命令行输入'echo tagfiles()'来查看当前使用的tags文件进行问题的debug
-let g:gutentags_project_root = ['.root']
-
+let g:gutentags_project_root = ['.root', '.git']
 " 所生成的数据文件的名称
 let g:gutentags_ctags_tagfile = 'gutentags'
 " 将自动生成的tags文件放入~/.cache/tags，避免污染工程目录
@@ -103,6 +78,7 @@ endif
 if executable('gtags-cscope') && executable('gtags')
     let g:gutentags_modules += ['gtags_cscope']
 endif
+
 " 配置ctags的参数
 let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+pxI']
@@ -143,6 +119,7 @@ autocmd FileType cc ClangFormatAutoEnable
 autocmd FileType hh ClangFormatAutoEnable
 autocmd FileType cxx ClangFormatAutoEnable
 autocmd FileType hxx ClangFormatAutoEnable
+
 " detects the style file like .clang-format
 let g:clang_format#detect_style_file=1
 let g:clang_format#auto_format=1
@@ -255,8 +232,5 @@ endif
 " 主题设置(深色)
 syntax enable
 set background=dark
-
-" 可以启用其他个性化主题
-"colorscheme codedark
-"let g:solarized_termtrans = 1
-"colorscheme solarized
+let g:solarized_termtrans = 1
+colorscheme solarized
