@@ -46,15 +46,14 @@ let g:gutentags_project_root = ['.root', '.git']
 let g:gutentags_ctags_tagfile = 'gutentags'
 let s:vim_tags = expand('~/.cache/tags')
 let g:gutentags_cache_dir = s:vim_tags
-
 if !isdirectory(s:vim_tags)
    silent! call mkdir(s:vim_tags, 'p')
 endif
 
 " ctags/gtags
+" universal ctags(https://github.com/universal-ctags/ctags)
 let g:gutentags_modules = []
 if executable('ctags')
-    " universal ctags(https://github.com/universal-ctags/ctags)
     let g:gutentags_modules += ['ctags']
 endif
 if executable('gtags-cscope') && executable('gtags')
@@ -143,9 +142,6 @@ let g:clang_format#filetype_style_options = {
 " "AlignConsecutiveDeclarations" : "true"
 
 " fatih/vim-go
-" these two configurations conflict with YCM
-"imap <F5> <C-x><C-o>
-"au filetype go inoremap <buffer> . .<C-x><C-o>
 let g:go_fmt_command = "goimports"
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
@@ -164,28 +160,20 @@ nnoremap <Leader>f :<C-u>call gitblame#echo()<CR>
 
 " vim-scripts/DoxygenToolkit.vim
 let g:DoxygenToolkit_briefTag_funcName = "yes"
-let g:doxygenToolkit_authorName="setup-your-name"
 let g:DoxygenToolkit_briefTag_pre = "@brief "
 let g:DoxygenToolkit_paramTag_pre = "@param "
 let g:DoxygenToolkit_returnTag = "@return "
-let g:DoxygenToolkit_throwTag_pre = "@throw " " @exception is also valid
+let g:DoxygenToolkit_throwTag_pre = "@throw "
 let g:DoxygenToolkit_fileTag = "@file "
-let g:DoxygenToolkit_dateTag = "@date "
-let g:DoxygenToolkit_authorTag = "@author "
 let g:DoxygenToolkit_versionTag = "@version "
 let g:DoxygenToolkit_blockTag = "@name "
 let g:DoxygenToolkit_classTag = "@class "
 let g:doxygen_enhanced_color = 1
 
-" Lincese
-"let g:DoxygenToolkit_licenseTag = "Copyright..."
-
-" encoding
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 set termencoding=utf-8
 set encoding=utf-8
 set helplang=cn
-
 set nu
 set hlsearch
 set backspace=2
@@ -201,10 +189,6 @@ set cursorcolumn
 set complete-=t
 set complete-=i
 set shortmess+=c
-
-if has("autocmd")
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-endif
 
 syntax enable
 set background=dark
