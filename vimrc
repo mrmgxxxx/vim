@@ -1,6 +1,8 @@
 " plugins
 call plug#begin('~/.vim/plugged')
 
+Plug 'vim-airline/vim-airline'
+
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
