@@ -3,7 +3,6 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 Plug 'ludovicchabant/vim-gutentags'
@@ -142,8 +141,8 @@ let g:clang_format#filetype_style_options = {
 " "AlignConsecutiveDeclarations" : "true"
 
 " fatih/vim-go
-"let g:go_fmt_command = "gofmt"
-let g:go_fmt_command = "goimports"
+let g:go_fmt_command = "gofmt"
+"let g:go_fmt_command = "goimports"
 let g:go_version_warning = 0
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
