@@ -1,8 +1,6 @@
 " plugins
 call plug#begin('~/.vim/plugged')
 
-Plug 'vim-airline/vim-airline'
-
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -192,6 +190,8 @@ set cursorcolumn
 set complete-=t
 set complete-=i
 set shortmess+=c
+set statusline=%F\ %m\ %=Ln\ %l,\ Col\ %c\ %p%%
+set laststatus=2
 
 syntax enable
 set background=dark
