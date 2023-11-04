@@ -1,8 +1,6 @@
 " plugins
 call plug#begin('~/.vim/plugged')
 
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-
 Plug 'junegunn/fzf.vim'
 
 Plug 'ludovicchabant/vim-gutentags'
@@ -26,13 +24,6 @@ Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'altercation/vim-colors-solarized'
 
 call plug#end()
-
-" scrooloose/nerdtree
-map <F3> :NERDTreeMirror<CR>
-map <F3> :NERDTreeToggle<CR>
-let NERDTreeWinSize=31
-let NERDTreeAutoCenter=1
-let NERDTreeShowLineNumbers=1
 
 " junegunn/fzf.vim
 nnoremap <silent> <Leader>gg :Ag <C-R><C-W><CR>
@@ -171,6 +162,12 @@ let g:DoxygenToolkit_blockTag = "@name "
 let g:DoxygenToolkit_classTag = "@class "
 let g:doxygen_enhanced_color = 1
 
+" internal plugin and hot keys
+" vim internal netrw plugin key
+nnoremap <F3> :Vexplore<CR>
+let g:netrw_winsize = 30
+
+" basic settings
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 set termencoding=utf-8
 set encoding=utf-8
