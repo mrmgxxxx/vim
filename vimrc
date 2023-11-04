@@ -136,9 +136,6 @@ let g:clang_format#filetype_style_options = {
         \   }
         \ }
 
-" "AlignConsecutiveAssignments" : "true"
-" "AlignConsecutiveDeclarations" : "true"
-
 " zivyangll/git-blame.vim
 nnoremap <Leader>f :<C-u>call gitblame#echo()<CR>
 
