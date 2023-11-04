@@ -8,15 +8,15 @@ Plug 'ludovicchabant/vim-gutentags'
 
 Plug 'dense-analysis/ale'
 
-Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'fatih/vim-go'
 
 Plug 'rhysd/vim-clang-format'
-
-Plug 'fatih/vim-go'
 
 Plug 'maxboisvert/vim-simple-complete'
 
 Plug 'zivyangll/git-blame.vim'
+
+Plug 'octol/vim-cpp-enhanced-highlight'
 
 Plug 'ntpeters/vim-better-whitespace'
 
@@ -70,14 +70,21 @@ let g:ale_linters = {
   \   'cpp': ['clang', 'g++'],
   \ }
 
-" octol/vim-cpp-enhanced-highlight
-let g:cpp_class_scope_highlight = 1
-let g:cpp_member_variable_highlight = 1
-let g:cpp_class_decl_highlight = 1
-let g:cpp_posix_standard = 1
-" template configs are very low performance
-"let g:cpp_experimental_simple_template_highlight = 1
-"let g:cpp_experimental_template_highlight = 1
+" fatih/vim-go
+let g:go_fmt_command = "gofmt"
+"let g:go_fmt_command = "goimports"
+let g:go_version_warning = 0
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_chan_whitespace_error = 0
+let g:go_highlight_methods = 1
+let g:go_highlight_generate_tags = 1
+let g:go_highlight_diagnostic_errors = 1
+let g:go_highlight_diagnostic_warnings = 1
 
 " rhysd/vim-clang-format
 let g:clang_format#command = 'clang-format'
@@ -132,24 +139,17 @@ let g:clang_format#filetype_style_options = {
 " "AlignConsecutiveAssignments" : "true"
 " "AlignConsecutiveDeclarations" : "true"
 
-" fatih/vim-go
-let g:go_fmt_command = "gofmt"
-"let g:go_fmt_command = "goimports"
-let g:go_version_warning = 0
-let g:go_highlight_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_chan_whitespace_error = 0
-let g:go_highlight_methods = 1
-let g:go_highlight_generate_tags = 1
-let g:go_highlight_diagnostic_errors = 1
-let g:go_highlight_diagnostic_warnings = 1
-
 " zivyangll/git-blame.vim
 nnoremap <Leader>f :<C-u>call gitblame#echo()<CR>
+
+" octol/vim-cpp-enhanced-highlight
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_class_decl_highlight = 1
+let g:cpp_posix_standard = 1
+" template configs are very low performance
+"let g:cpp_experimental_simple_template_highlight = 1
+"let g:cpp_experimental_template_highlight = 1
 
 " vim-scripts/DoxygenToolkit.vim
 let g:DoxygenToolkit_briefTag_funcName = "yes"
