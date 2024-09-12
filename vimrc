@@ -160,6 +160,21 @@ let g:DoxygenToolkit_blockTag = "@name "
 let g:DoxygenToolkit_classTag = "@class "
 let g:doxygen_enhanced_color = 1
 
+" relative line number
+function! ToggleRelativeNumberTemporary()
+  echo "enabling relative line number"
+  set rnu
+  call timer_start(1000, 'DisableRelativeNumber')
+endfunction
+
+function! DisableRelativeNumber(timer_id)
+  echo "disabling relative line number"
+  set nornu
+endfunction
+
+command! ToggleRelativeNumberTemporary call ToggleRelativeNumberTemporary()
+nnoremap <leader>r :ToggleRelativeNumberTemporary<CR>
+
 " internal plugin and hot keys
 " vim internal netrw plugin key
 nnoremap <F3> :Vexplore<CR>
@@ -187,6 +202,7 @@ set shortmess+=c
 set statusline=%F\ %m\ %=Ln\ %l,\ Col\ %c\ %p%%
 set laststatus=2
 
+" colorscheme
 syntax enable
 set background=dark
 let g:solarized_termtrans = 1
