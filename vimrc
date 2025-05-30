@@ -22,8 +22,6 @@ Plug 'ntpeters/vim-better-whitespace'
 
 Plug 'vim-scripts/DoxygenToolkit.vim'
 
-Plug 'altercation/vim-colors-solarized'
-
 call plug#end()
 
 " junegunn/fzf.vim
@@ -72,7 +70,6 @@ let g:ale_linters = {
 
 " fatih/vim-go
 let g:go_fmt_command = "gofmt"
-"let g:go_fmt_command = "goimports"
 let g:go_version_warning = 0
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
@@ -201,9 +198,3 @@ set complete-=i
 set shortmess+=c
 set statusline=%F\ %m\ %=Ln\ %l,\ Col\ %c\ %p%%
 set laststatus=2
-
-" colorscheme
-syntax enable
-set background=dark
-let g:solarized_termtrans = 1
-colorscheme solarized

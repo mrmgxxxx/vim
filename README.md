@@ -1,5 +1,5 @@
-🐸 Personal Vim8 Configs
-=====================
+🐸 Personal Vim8 Settings
+=========================
 
 Before installation, backup and clean all files and directories starting with '.vim' in the HOME directory to avoid effects related to the old and new configurations.
 
@@ -11,18 +11,6 @@ Run the command to install and config your vim shit ~
 
 ```sh
 sudo wget -O - https://raw.githubusercontent.com/mrmgxxxx/vim/master/install.sh | sh
-```
-
-**🌈 Others:**
-
-![avatar](https://cloud.githubusercontent.com/assets/10374559/23341312/1961f416-fc45-11e6-83ba-d7180c5fdd6d.png)
-
-🍔 Recommended Theme: https://github.com/altercation/vim-colors-solarized
-
-```sh
-let g:solarized_termcolors=256
-let g:solarized_termcolors=16
-let g:solarized_termtrans=1
 ```
 
 🍺 Recommended Color:
