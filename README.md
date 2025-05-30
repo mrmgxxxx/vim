@@ -15,7 +15,7 @@ sudo wget -O - https://raw.githubusercontent.com/mrmgxxxx/vim/master/install.sh 
 
 🍺 Recommended Color:
 
-```sh
+```
 Foreground: 00f900
 Background: 002b36
 ```
@@ -24,4 +24,19 @@ Background: 002b36
 
 ```sh
 export PS1='\[\e[32;1m\][\u@\h \W]\\$> \[\e[0m\]'
+```
+
+🍉 Recommended .gitconfig:
+
+```
+[color]
+    branch = auto
+    ui = auto
+    status = auto
+[alias]
+    st = status
+    ll = log --graph --abbrev-commit --decorate --format=format:'%C(red)%h%C(reset) - %C(bold yellow)%d%C(reset) %C(bold green)%s%C(reset) %C(blue)- %an%C(reset) %C(blue)%aD%C(reset) %C(blue)(%ar)%C(reset)' --all
+    co = checkout
+[core]
+    editor = vim
 ```
