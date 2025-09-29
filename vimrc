@@ -20,8 +20,6 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 
 Plug 'ntpeters/vim-better-whitespace'
 
-Plug 'vim-scripts/DoxygenToolkit.vim'
-
 call plug#end()
 
 " junegunn/fzf.vim
@@ -144,18 +142,6 @@ let g:cpp_posix_standard = 1
 " template configs are very low performance
 "let g:cpp_experimental_simple_template_highlight = 1
 "let g:cpp_experimental_template_highlight = 1
-
-" vim-scripts/DoxygenToolkit.vim
-let g:DoxygenToolkit_briefTag_funcName = "yes"
-let g:DoxygenToolkit_briefTag_pre = "@brief "
-let g:DoxygenToolkit_paramTag_pre = "@param "
-let g:DoxygenToolkit_returnTag = "@return "
-let g:DoxygenToolkit_throwTag_pre = "@throw "
-let g:DoxygenToolkit_fileTag = "@file "
-let g:DoxygenToolkit_versionTag = "@version "
-let g:DoxygenToolkit_blockTag = "@name "
-let g:DoxygenToolkit_classTag = "@class "
-let g:doxygen_enhanced_color = 1
 
 " relative line number
 function! ToggleRelativeNumberTemporary()
