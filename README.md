@@ -35,8 +35,20 @@ export PS1='\[\e[32;1m\][\u@\h \W]\\$> \[\e[0m\]'
     status = auto
 [alias]
     st = status
-    ll = log --graph --abbrev-commit --decorate --format=format:'%C(red)%h%C(reset) - %C(bold yellow)%d%C(reset) %C(bold green)%s%C(reset) %C(blue)- %an%C(reset) %C(blue)%aD%C(reset) %C(blue)(%ar)%C(reset)' --all
     co = checkout
+
+    # show the file commit log graph base on 'git log'
+    ll = log --graph --abbrev-commit --decorate --format=format:'%C(red)%h%C(reset) - %C(bold yellow)%d%C(reset) %C(bold green)%s%C(reset) %C(blue)- %an%C(reset) %C(blue)%aD%C(reset) %C(blue)(%ar)%C(reset)' --all
+
+    # show the file line commit base on 'git blame' and 'git log',
+    # e.g.: git lb 42 example.cpp
+    lb = "!f() { \
+        commit_hash=$(git blame -L $1,$1 \"$2\" 2>/dev/null | awk \"{print \\$1}\" | head -1); \
+        if [ -z \"$commit_hash\" ] || [ \"$commit_hash\" = \"^\" ]; then \
+            return 1; \
+        fi; \
+        git log --format=\"%s\" -n 1 $commit_hash; \
+    }; f"
 [core]
     editor = vim
 ```

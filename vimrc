@@ -14,8 +14,6 @@ Plug 'rhysd/vim-clang-format'
 
 Plug 'maxboisvert/vim-simple-complete'
 
-Plug 'zivyangll/git-blame.vim'
-
 Plug 'octol/vim-cpp-enhanced-highlight'
 
 Plug 'ntpeters/vim-better-whitespace'
@@ -131,9 +129,6 @@ let g:clang_format#filetype_style_options = {
         \   }
         \ }
 
-" zivyangll/git-blame.vim
-nnoremap <Leader>f :<C-u>call gitblame#echo()<CR>
-
 " octol/vim-cpp-enhanced-highlight
 let g:cpp_class_scope_highlight = 1
 let g:cpp_member_variable_highlight = 1
@@ -143,7 +138,7 @@ let g:cpp_posix_standard = 1
 "let g:cpp_experimental_simple_template_highlight = 1
 "let g:cpp_experimental_template_highlight = 1
 
-" relative line number
+" show relative line number
 function! ToggleRelativeNumberTemporary()
   echo "enabling relative line number"
   set rnu
