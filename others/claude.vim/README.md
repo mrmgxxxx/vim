@@ -88,7 +88,7 @@ let g:claude_terminal_cmd = 'fish'
 let g:claude_auto_cmd = 'claude'
 
 " Auto-run claude command in personalized way
-let g:claude_auto_cmd = '~/.local/bin/claude-internal --xxxx'
+let g:claude_auto_cmd = '~/.local/bin/claude --xxxx'
 ```
 
 ### 5. g:claude_position

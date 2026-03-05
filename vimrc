@@ -172,10 +172,8 @@ set autoindent
 set smartindent
 set showmatch
 set colorcolumn=150
-set cursorline
-set cursorcolumn
 set complete-=t
 set complete-=i
 set shortmess+=c
-set statusline=%F\ %m\ %=Ln\ %l,\ Col\ %c\ %p%%
+set statusline=%{getcwd()}\ %F\ %m\ %=Ln\ %l,\ Col\ %c\ %p%%
 set laststatus=2
