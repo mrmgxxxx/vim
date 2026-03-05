@@ -175,5 +175,6 @@ set colorcolumn=150
 set complete-=t
 set complete-=i
 set shortmess+=c
-set statusline=%{getcwd()}\ %F\ %m\ %=Ln\ %l,\ Col\ %c\ %p%%
 set laststatus=2
+set cursorline
+set statusline=%{getcwd()}\ %F\ %m\ %=Ln\ %l,\ Col\ %c\ %p%%
