@@ -176,6 +176,4 @@ set complete-=t
 set complete-=i
 set shortmess+=c
 set laststatus=2
-set cursorline
-set cursorcolumn
 set statusline=%{getcwd()}\ %F\ %m\ %=Ln\ %l,\ Col\ %c\ %p%%
