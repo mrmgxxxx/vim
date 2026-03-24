@@ -153,11 +153,6 @@ endfunction
 command! ToggleRelativeNumberTemporary call ToggleRelativeNumberTemporary()
 nnoremap <leader>r :ToggleRelativeNumberTemporary<CR>
 
-" internal plugin and hot keys
-" vim internal netrw plugin key
-nnoremap <F3> :Vexplore<CR>
-let g:netrw_winsize = 30
-
 " basic settings
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 set termencoding=utf-8
