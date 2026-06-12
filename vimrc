@@ -3,19 +3,12 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-
 Plug 'ludovicchabant/vim-gutentags'
-
 Plug 'dense-analysis/ale'
-
 Plug 'fatih/vim-go'
-
 Plug 'rhysd/vim-clang-format'
-
 Plug 'maxboisvert/vim-simple-complete'
-
 Plug 'octol/vim-cpp-enhanced-highlight'
-
 Plug 'ntpeters/vim-better-whitespace'
 
 call plug#end()
