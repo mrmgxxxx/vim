@@ -53,16 +53,12 @@ Keybindings:
 
 ## Simple Auto Completion
 
-Handled directly in `vimrc` with built-in Vim commands (no plugin required):
-
 | Behavior           | Description                                                                                  |
-| ------------------ | ------------------------------------------------------------------------------------------- |
-| Keyword completion | Auto triggers keyword completion (`<C-N>`) after typing 3 keyword characters                 |
+| ------------------ | -------------------------------------------------------------------------------------------- |
+| Keyword completion | Auto triggers keyword completion after typing 3 keyword characters                           |
 | Popup behavior     | `completeopt=menuone,noselect` shows the menu without preselecting; menu height capped at 10 |
 
 ## Whitespace Management
-
-Handled directly in `vimrc` with built-in Vim commands (no plugin required):
 
 | Behavior            | Description                                                             |
 | ------------------- | ----------------------------------------------------------------------- |
