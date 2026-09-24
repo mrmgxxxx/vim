@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
 set -eo pipefail
 
-# colored echo helper
 say() { echo -e "\e[34;1m$1\033[0m"; }
 
-# use sudo only when not already root
 if [ "$(id -u)" -eq 0 ]; then
     SUDO=""
 else
@@ -18,7 +16,6 @@ logfile="$rootpath/install.log"
 trap 'echo "see log: $logfile"' ERR
 
 # install base commands
-# vim compile deps: ncurses dev headers are required by ./configure
 if command -v yum >/dev/null 2>&1; then
     $SUDO yum -y install gcc git wget make clang llvm ncurses-devel the_silver_searcher >> "$logfile" 2>&1
 elif command -v apt-get >/dev/null 2>&1; then

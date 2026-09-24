@@ -1,21 +1,29 @@
 " plugins
 call plug#begin('~/.vim/plugged')
-
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'dense-analysis/ale'
-Plug 'fatih/vim-go'
-Plug 'rhysd/vim-clang-format'
-Plug 'maxboisvert/vim-simple-complete'
-Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'ntpeters/vim-better-whitespace'
-
+Plug 'maxboisvert/vim-simple-complete'
+Plug 'fatih/vim-go'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'rhysd/vim-clang-format'
+Plug 'octol/vim-cpp-enhanced-highlight'
 call plug#end()
 
 " junegunn/fzf.vim
 nnoremap <silent> <Leader>gg :Ag <C-R><C-W><CR>
 nnoremap <silent> <c-p> :Files <CR>
+
+" fatih/vim-go
+let g:go_version_warning = 0
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_generate_tags = 1
 
 " ludovicchabant/vim-gutentags
 let g:gutentags_enabled = 1
@@ -27,109 +35,25 @@ let g:gutentags_cache_dir = s:vim_tags
 if !isdirectory(s:vim_tags)
    silent! call mkdir(s:vim_tags, 'p')
 endif
-
-" ctags/gtags
-" universal ctags(https://github.com/universal-ctags/ctags)
 let g:gutentags_modules = []
 if executable('ctags')
     let g:gutentags_modules += ['ctags']
 endif
-if executable('gtags-cscope') && executable('gtags')
-    let g:gutentags_modules += ['gtags_cscope']
-endif
-let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
-let g:gutentags_ctags_extra_args += ['--c++-kinds=+pxI']
-let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-
-" dense-analysis/ale
-let g:ale_fix_on_save = 1
-let g:ale_sign_error = '✗'
-let g:ale_sign_warning = '⚡'
-let g:ale_cpp_gcc_options = ' -std=c++11 '
-let g:ale_cpp_clang_options = ' -std=c++11 '
-let g:ale_linters_explicit = 1
-let g:ale_linters = {
-  \   'csh': ['shell'],
-  \   'zsh': ['shell'],
-  \   'python': ['pylint'],
-  \   'go': ['gofmt', 'golint'],
-  \   'c': ['clang', 'gcc'],
-  \   'cpp': ['clang', 'g++'],
-  \ }
-
-" fatih/vim-go
-let g:go_fmt_command = "gofmt"
-let g:go_version_warning = 0
-let g:go_highlight_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_chan_whitespace_error = 0
-let g:go_highlight_methods = 1
-let g:go_highlight_generate_tags = 1
-let g:go_highlight_diagnostic_errors = 1
-let g:go_highlight_diagnostic_warnings = 1
+let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q', '--c++-kinds=+pxI', '--c-kinds=+px']
 
 " rhysd/vim-clang-format
-let g:clang_format#command = 'clang-format'
+let g:clang_format#detect_style_file=1
 autocmd FileType c ClangFormatAutoEnable
 autocmd FileType h ClangFormatAutoEnable
 autocmd FileType cpp ClangFormatAutoEnable
 autocmd FileType hpp ClangFormatAutoEnable
 autocmd FileType cc ClangFormatAutoEnable
 autocmd FileType hh ClangFormatAutoEnable
-autocmd FileType cxx ClangFormatAutoEnable
-autocmd FileType hxx ClangFormatAutoEnable
-
-" detects the style file like .clang-format
-let g:clang_format#detect_style_file=1
-let g:clang_format#auto_format=1
-let g:clang_format#filetype_style_options = {
-        \ "proto" : {
-        \     "Language" : "Proto",
-        \     "DisableFormat" : "true"
-        \ },
-        \ "cpp" : {
-        \     "Language" : "Cpp",
-        \     "BasedOnStyle" : "LLVM",
-        \     "UseTab" : "Never",
-        \     "TabWidth" : 4,
-        \     "IndentWidth" : 4,
-        \     "ColumnLimit" : 0,
-        \     "MaxEmptyLinesToKeep" : 1,
-        \     "AccessModifierOffset" : -4,
-        \     "IndentCaseLabels" : "false",
-        \     "FixNamespaceComments" : "true",
-        \     "DerivePointerAlignment" : "true",
-        \     "PointerAlignment" : "Left",
-        \     "BreakBeforeBraces" : "Custom",
-        \     "SpacesInAngles" : "false",
-        \     "AllowShortFunctionsOnASingleLine" : "Inline",
-        \     "BraceWrapping" : {
-        \       "AfterCaseLabel" : "true",
-        \       "AfterUnion" : "true",
-        \       "AfterStruct" : "true",
-        \       "AfterClass" : "true",
-        \       "AfterEnum" : "true",
-        \       "AfterFunction" : "true",
-        \       "AfterControlStatement" : "true",
-        \       "BeforeCatch" : "true",
-        \       "BeforeElse" : "true",
-        \       "AfterNamespace" : "false"
-        \     }
-        \   }
-        \ }
 
 " octol/vim-cpp-enhanced-highlight
 let g:cpp_class_scope_highlight = 1
 let g:cpp_member_variable_highlight = 1
 let g:cpp_class_decl_highlight = 1
-let g:cpp_posix_standard = 1
-" template configs are very low performance
-"let g:cpp_experimental_simple_template_highlight = 1
-"let g:cpp_experimental_template_highlight = 1
 
 " show relative line number
 function! ToggleRelativeNumberTemporary()
@@ -137,12 +61,10 @@ function! ToggleRelativeNumberTemporary()
   set rnu
   call timer_start(1000, 'DisableRelativeNumber')
 endfunction
-
 function! DisableRelativeNumber(timer_id)
   echo "disabling relative line number"
   set nornu
 endfunction
-
 command! ToggleRelativeNumberTemporary call ToggleRelativeNumberTemporary()
 nnoremap <leader>r :ToggleRelativeNumberTemporary<CR>
 
@@ -157,11 +79,10 @@ set ts=4
 set expandtab
 set shiftwidth=4
 set autoindent
-set smartindent
 set showmatch
-set colorcolumn=150
 set complete-=t
 set complete-=i
 set shortmess+=c
 set laststatus=2
 set statusline=%{getcwd()}\ %F\ %m\ %=Ln\ %l,\ Col\ %c\ %p%%
+set maxmempattern=10240

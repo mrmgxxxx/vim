@@ -5,7 +5,7 @@ Before installation, backup and clean all files and directories starting with '.
 
 Recommended OS is CentOS 8 which have Clang 11+, GCC 7+/8+, and you also could install universal ctags(https://github.com/universal-ctags/ctags) by your self for more ctag features.
 
-👀 Install:
+Install:
 
 Run the command to install and config your vim shit ~
 
@@ -13,7 +13,7 @@ Run the command to install and config your vim shit ~
 sudo wget -O - https://raw.githubusercontent.com/mrmgxxxx/vim/master/install.sh | sh
 ```
 
-⌨️ Keybindings:
+Keybindings:
 
 ## Custom Keybindings
 
@@ -28,43 +28,40 @@ sudo wget -O - https://raw.githubusercontent.com/mrmgxxxx/vim/master/install.sh 
 
 ### vim-gutentags (Auto Tag Management)
 
-| Behavior                  | Description                                                                                                                        |
-| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| Auto generate/update tags | Automatically generates tag files using `ctags`/`gtags` when `.root` or `.git` project root is detected, cached in `~/.cache/tags` |
-| `Ctrl-]`                  | (Vim built-in) Jump to the definition of the symbol under cursor (depends on ctags)                                                |
-| `Ctrl-t`                  | (Vim built-in) Jump back from definition to previous location                                                                      |
-| `Ctrl-o`                  | (Vim built-in) Jump to previous location (general purpose jump back)                                                               |
+| Behavior                  | Description                                                                                                                |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| Auto generate/update tags | Automatically generates tag files using `ctags` when `.root` or `.git` project root is detected, cached in `~/.cache/tags` |
+| `Ctrl-]`                  | (Vim built-in) Jump to the definition of the symbol under cursor (depends on ctags)                                        |
+| `Ctrl-o`                  | (Vim built-in) Jump to previous location (general purpose jump back)                                                       |
+| `Ctrl-t`                  | (Vim built-in) Jump back from definition to previous location                                                              |
 
-### ALE (Async Lint Engine)
+### vim-simple-complete (Lightweight Completion)
 
-| Behavior          | Description                                                            |
-| ----------------- | ---------------------------------------------------------------------- |
-| Auto fix on save  | `ale_fix_on_save = 1`, automatically runs fixers when saving files     |
-| Error sign `✗`    | Displays error indicator in the sign column                            |
-| Warning sign `⚡` | Displays warning indicator in the sign column                          |
-| Supported linters | Shell (csh/zsh), Python (pylint), Go (gofmt/golint), C/C++ (clang/gcc) |
+| Behavior           | Description                                                   |
+| ------------------ | ------------------------------------------------------------- |
+| Keyword completion | Provides simple, dependency-free keyword-based autocompletion |
 
 ### vim-go (Go Development)
 
-| Behavior                     | Description                                                                       |
-| ---------------------------- | --------------------------------------------------------------------------------- |
-| Auto format on save          | Uses `gofmt` to auto-format Go files on save                                      |
-| Enhanced syntax highlighting | Highlights types, fields, functions, function calls, operators, diagnostics, etc. |
+| Behavior                     | Description                                                                                               |
+| ---------------------------- | --------------------------------------------------------------------------------------------------------- |
+| Enhanced syntax highlighting | Highlights types, fields, functions, function calls, operators, extra types, methods, and generate tags   |
+| `Ctrl-]`                     | (Vim built-in) Jump to the definition of the symbol under cursor (`:GoDef`, gopls-based, no ctags needed) |
+| `Ctrl-o`                     | (Vim built-in) Jump back through the jumplist; also works after a `:GoDef` jump                           |
+| `Ctrl-t`                     | (Vim built-in) Jump back from a definition to the previous location (`:GoDefPop`)                         |
 
 ### vim-clang-format (C/C++ Formatting)
 
 | Behavior            | Description                                                                             |
 | ------------------- | --------------------------------------------------------------------------------------- |
-| Auto format on save | Automatically runs `clang-format` on save for `.c/.h/.cpp/.hpp/.cc/.hh/.cxx/.hxx` files |
-| Style               | C++ based on LLVM style, 4-space indent, Allman brace style, no column limit            |
-| Proto files         | Formatting disabled                                                                     |
+| Auto format on save | Automatically runs `clang-format` on save for `.c/.h/.cpp/.hpp/.cc/.hh` files           |
+| Style               | Detects and uses a project-local `.clang-format` style file (`detect_style_file`)       |
 
 ### vim-better-whitespace (Whitespace Management)
 
 | Behavior           | Description                                    |
 | ------------------ | ---------------------------------------------- |
 | Auto highlight     | Highlights trailing whitespace at end of lines |
-| `:StripWhitespace` | Command to remove all trailing whitespace      |
 
 ## Basic Editor Settings
 
@@ -74,13 +71,13 @@ sudo wget -O - https://raw.githubusercontent.com/mrmgxxxx/vim/master/install.sh 
 | `set hlsearch`                       | Highlight search results                                                      |
 | `set ts=4` / `set shiftwidth=4`      | Tab width 4, indent width 4                                                   |
 | `set expandtab`                      | Convert tabs to spaces                                                        |
-| `set autoindent` / `set smartindent` | Auto indent + smart indent                                                    |
+| `set autoindent`                     | Auto indent new lines based on the previous line                              |
 | `set showmatch`                      | Briefly highlight matching bracket when typing                                |
-| `set colorcolumn=150`                | Show vertical guide line at column 150                                        |
 | `set backspace=2`                    | Allow backspace over indent, line breaks, and pre-existing characters         |
+| `set maxmempattern=10240`            | Raise pattern-match memory limit (KB) to avoid errors on large files          |
 | Status line                          | Shows: working directory + file path + modified flag + line/column/percentage |
 
-🍉 Recommended .gitconfig:
+Recommended .gitconfig:
 
 ```
 [color]
