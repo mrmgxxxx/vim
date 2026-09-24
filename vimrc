@@ -5,7 +5,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'fatih/vim-go'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'rhysd/vim-clang-format'
-Plug 'octol/vim-cpp-enhanced-highlight'
 call plug#end()
 
 " junegunn/fzf.vim
@@ -47,11 +46,6 @@ autocmd FileType cpp ClangFormatAutoEnable
 autocmd FileType hpp ClangFormatAutoEnable
 autocmd FileType cc ClangFormatAutoEnable
 autocmd FileType hh ClangFormatAutoEnable
-
-" octol/vim-cpp-enhanced-highlight
-let g:cpp_class_scope_highlight = 1
-let g:cpp_member_variable_highlight = 1
-let g:cpp_class_decl_highlight = 1
 
 " simple auto complete
 set completeopt+=menuone,noselect
@@ -110,3 +104,5 @@ set shortmess+=c
 set laststatus=2
 set statusline=%{getcwd()}\ %F\ %m\ %=Ln\ %l,\ Col\ %c\ %p%%
 set maxmempattern=10240
+
+syntax on
