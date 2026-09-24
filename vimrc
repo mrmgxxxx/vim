@@ -2,8 +2,6 @@
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'ntpeters/vim-better-whitespace'
-Plug 'maxboisvert/vim-simple-complete'
 Plug 'fatih/vim-go'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'rhysd/vim-clang-format'
@@ -54,6 +52,32 @@ autocmd FileType hh ClangFormatAutoEnable
 let g:cpp_class_scope_highlight = 1
 let g:cpp_member_variable_highlight = 1
 let g:cpp_class_decl_highlight = 1
+
+" simple auto complete
+set completeopt+=menuone,noselect
+set pumheight=10
+let s:typed = 0
+augroup AutoKeywordComplete
+  autocmd!
+  autocmd InsertEnter * let s:typed = 0
+  autocmd InsertCharPre * call s:TypeComplete()
+augroup END
+function! s:TypeComplete()
+  if v:char !~ '\k'
+    let s:typed = 0
+    return
+  endif
+  let s:typed += 1
+  if !pumvisible() && s:typed == 3
+    call feedkeys("\<C-N>", 'i')
+  endif
+endfunction
+
+" better whitespace
+highlight ExtraWhitespace ctermbg=red guibg=red
+autocmd BufWinEnter,InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd BufWritePre * let b:_wv = winsaveview() | silent! keeppatterns %s/\s\+$//e | call winrestview(b:_wv)
 
 " show relative line number
 function! ToggleRelativeNumberTemporary()

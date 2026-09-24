@@ -35,12 +35,6 @@ Keybindings:
 | `Ctrl-o`                  | (Vim built-in) Jump to previous location (general purpose jump back)                                                       |
 | `Ctrl-t`                  | (Vim built-in) Jump back from definition to previous location                                                              |
 
-### vim-simple-complete (Lightweight Completion)
-
-| Behavior           | Description                                                   |
-| ------------------ | ------------------------------------------------------------- |
-| Keyword completion | Provides simple, dependency-free keyword-based autocompletion |
-
 ### vim-go (Go Development)
 
 | Behavior                     | Description                                                                                               |
@@ -57,11 +51,23 @@ Keybindings:
 | Auto format on save | Automatically runs `clang-format` on save for `.c/.h/.cpp/.hpp/.cc/.hh` files           |
 | Style               | Detects and uses a project-local `.clang-format` style file (`detect_style_file`)       |
 
-### vim-better-whitespace (Whitespace Management)
+## Simple Auto Completion
 
-| Behavior           | Description                                    |
-| ------------------ | ---------------------------------------------- |
-| Auto highlight     | Highlights trailing whitespace at end of lines |
+Handled directly in `vimrc` with built-in Vim commands (no plugin required):
+
+| Behavior           | Description                                                                                  |
+| ------------------ | ------------------------------------------------------------------------------------------- |
+| Keyword completion | Auto triggers keyword completion (`<C-N>`) after typing 3 keyword characters                 |
+| Popup behavior     | `completeopt=menuone,noselect` shows the menu without preselecting; menu height capped at 10 |
+
+## Whitespace Management
+
+Handled directly in `vimrc` with built-in Vim commands (no plugin required):
+
+| Behavior            | Description                                                             |
+| ------------------- | ----------------------------------------------------------------------- |
+| Auto highlight      | Highlights trailing whitespace at end of lines (red background)         |
+| Auto strip on save  | Removes trailing whitespace on save while preserving cursor/view state  |
 
 ## Basic Editor Settings
 
