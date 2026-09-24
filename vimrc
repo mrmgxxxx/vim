@@ -1,3 +1,5 @@
+syntax on
+
 " plugins
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -104,5 +106,3 @@ set shortmess+=c
 set laststatus=2
 set statusline=%{getcwd()}\ %F\ %m\ %=Ln\ %l,\ Col\ %c\ %p%%
 set maxmempattern=10240
-
-syntax on
