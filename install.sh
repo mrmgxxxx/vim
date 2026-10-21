@@ -147,7 +147,6 @@ if [ "$need_install_vim" -eq 1 ]; then
         ok "vim $version installed"
     fi
 else
-    step "Checking Vim"
     skip "vim $_vimver already installed"
 fi
 
@@ -164,7 +163,6 @@ if [ "$need_install_fzf" -eq 1 ]; then
     version=$("${HOME}/.fzf/bin/fzf" --version | awk '{print $1}')
     ok "fzf $version installed"
 else
-    step "Checking fzf"
     skip "fzf already installed"
 fi
 
