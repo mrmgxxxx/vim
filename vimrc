@@ -111,12 +111,16 @@ function! s:GitBlameLine() abort
 endfunction
 nnoremap <silent> <Leader>f :<C-u>call <SID>GitBlameLine()<CR>
 
+" clear search highlight
+nnoremap <silent> <Esc><Esc> :nohlsearch<CR>
+
 " basic settings
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 set termencoding=utf-8
 set encoding=utf-8
 set nu
 set hlsearch
+set scrolloff=10
 set backspace=2
 set ts=4
 set expandtab
