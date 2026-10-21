@@ -1,11 +1,43 @@
 #!/usr/bin/env bash
 set -eo pipefail
 
-say() { echo -e "\e[34;1m$1\033[0m"; }
+# output helpers (step counter + unified symbols)
+if [ -t 2 ]; then
+    C_BOLD=$'\e[1m'; C_DIM=$'\e[2m'; C_BLUE=$'\e[34;1m'
+    C_GREEN=$'\e[32;1m'; C_RED=$'\e[31;1m'; C_RESET=$'\e[0m'
+else
+    C_BOLD=""; C_DIM=""; C_BLUE=""; C_GREEN=""; C_RED=""; C_RESET=""
+fi
+
+STEP_NO=0
+STEP_TOTAL=0
+
+# step "description" -- prints a numbered step header
+step() {
+    STEP_NO=$((STEP_NO + 1))
+    printf '%s==>%s %s[%d/%d]%s %s\n' \
+        "$C_BLUE" "$C_RESET" "$C_BOLD" "$STEP_NO" "$STEP_TOTAL" "$C_RESET" "$1" >&2
+}
+
+# info "message"  -- a plain sub-line under a step
+info() { printf '    %s%s%s\n' "$C_DIM" "$1" "$C_RESET" >&2; }
+
+# skip "message"  -- marks something already done / skipped
+skip() { printf '    %s\u2022%s %s\n' "$C_DIM" "$C_RESET" "$1" >&2; }
+
+# ok "message"    -- a success sub-line (no timing)
+ok() { printf '    %s\u2714%s %s\n' "$C_GREEN" "$C_RESET" "$1" >&2; }
+
+# fail "message"  -- print an error and exit
+fail() {
+    printf '    %s\u2718%s %s\n' "$C_RED" "$C_RESET" "$1" >&2
+    printf '    %ssee log: %s%s\n' "$C_DIM" "$logfile" "$C_RESET" >&2
+    exit 1
+}
 
 # run_step "description" cmd args...
-# runs the command in background with output appended to $logfile, shows a
-# spinner while it runs, then prints the elapsed time; exits on failure.
+# runs the command in background (output appended to $logfile), shows a spinner
+# while it runs, then prints elapsed time; exits on failure.
 run_step() {
     local desc="$1"; shift
     local start=$SECONDS
@@ -18,27 +50,28 @@ run_step() {
         local i=0
         while kill -0 "$pid" 2>/dev/null; do
             i=$(( (i + 1) % ${#frames} ))
-            printf '\r\e[34;1m%s\033[0m %s' "${frames:$i:1}" "$desc" >&2
+            printf '\r    %s%s%s %s' "$C_BLUE" "${frames:$i:1}" "$C_RESET" "$desc" >&2
             sleep 0.1
         done
     else
-        printf '... %s\n' "$desc" >&2
+        printf '    %s... %s\n' "$C_DIM" "$desc" >&2
     fi
 
     if wait "$pid"; then
-        printf '\r\e[32;1m✔\033[0m %s (%ds)\033[K\n' "$desc" "$((SECONDS - start))" >&2
+        printf '\r    %s\u2714%s %s %s(%ds)%s\033[K\n' \
+            "$C_GREEN" "$C_RESET" "$desc" "$C_DIM" "$((SECONDS - start))" "$C_RESET" >&2
     else
-        printf '\r\e[31;1m✘\033[0m %s (%ds)\033[K\n' "$desc" "$((SECONDS - start))" >&2
-        say "😭  Step failed: $desc"
-        echo "see log: $logfile" >&2
-        exit 1
+        printf '\r    %s\u2718%s %s %s(%ds)%s\033[K\n' \
+            "$C_RED" "$C_RESET" "$desc" "$C_DIM" "$((SECONDS - start))" "$C_RESET" >&2
+        fail "step failed: $desc"
     fi
 }
 
+# preflight
 if [ "$(id -u)" -eq 0 ]; then
     SUDO=""
 else
-    command -v sudo >/dev/null 2>&1 || { say "😭  Need root or sudo to install packages!"; exit 1; }
+    command -v sudo >/dev/null 2>&1 || { printf '%s\u2718%s need root or sudo to install packages\n' "$C_RED" "$C_RESET" >&2; exit 1; }
     SUDO="sudo"
 fi
 
@@ -47,115 +80,124 @@ rootpath=$(mktemp -d "${TMPDIR:-/tmp}/mrmgxxxx-vim.XXXXXX")
 logfile="$rootpath/install.log"
 trap 'echo "see log: $logfile"' ERR
 
-# install base commands
-if command -v yum >/dev/null 2>&1; then
-    run_step "Installing base packages (gcc/git/make/clang/ag)" \
-        $SUDO yum -y install gcc git make clang ncurses-devel the_silver_searcher
-elif command -v apt-get >/dev/null 2>&1; then
-    run_step "Updating apt package index" $SUDO apt-get -y update
-    run_step "Installing base packages (gcc/git/make/clang/ag)" \
-        $SUDO apt-get -y install gcc git make clang libncurses-dev silversearcher-ag
-else
-    say "😭  No supported package manager (yum/apt-get) found!"
-    exit 1
-fi
-say "🌈  Commands gcc/git/make/clang/ag install successfully!\n"
+# probe what needs to be done, so the [n/N] counter is accurate
+# step 1: base packages (always)
+STEP_TOTAL=$((STEP_TOTAL + 1))
 
-# check local vim version
+# step 2: vim (only if missing or < 8)
 need_install_vim=0
 if ! command -v vim >/dev/null 2>&1; then
-    say "😥  Not found vim, need to install one ..."
     need_install_vim=1
 else
-    version=$(vim --version | head -n 1 | awk '{print $5}')
-    major=$(echo "$version" | awk -F '.' '{print $1}')
+    _vimver=$(vim --version | head -n 1 | awk '{print $5}')
+    _vimmajor=$(echo "$_vimver" | awk -F '.' '{print $1}')
+    [ "${_vimmajor:-0}" -lt 8 ] && need_install_vim=1
+fi
+[ "$need_install_vim" -eq 1 ] && STEP_TOTAL=$((STEP_TOTAL + 1))
 
-    if [ "${major:-0}" -lt 8 ]; then
-        say "🐱  Found local vim version $version which need to upgrade version to 8.0+ ..."
-        need_install_vim=1
-    else
-        say "👀  Local vim version $version is already installed!"
-    fi
+# step 3: fzf (only if missing)
+need_install_fzf=0
+if ! command -v fzf >/dev/null 2>&1 && [ ! -x "${HOME}/.fzf/bin/fzf" ]; then
+    need_install_fzf=1
+    STEP_TOTAL=$((STEP_TOTAL + 1))
 fi
 
-# install local new vim
-if [ "$need_install_vim" -eq 1 ]; then
-    say "🐱  Install the new vim version now (it may take some time to compile, please be patient) ..."
-    cd "$rootpath"
-    git clone https://github.com/vim/vim.git >> "$logfile" 2>&1
-    cd vim/src && git checkout v8.2.3430 >> "$logfile" 2>&1
+# step 4: vim-plug / vimrc (always run the config step; it is idempotent)
+STEP_TOTAL=$((STEP_TOTAL + 1))
 
-    ./configure --with-features=huge --enable-cscope --enable-fontset >> "$logfile" 2>&1
-    make -j"$(nproc)" >> "$logfile" 2>&1
-    $SUDO make install >> "$logfile" 2>&1
+printf '%s%sSetting up Vim8 environment%s %s(%d steps)%s\n' \
+    "$C_BOLD" "$C_BLUE" "$C_RESET" "$C_DIM" "$STEP_TOTAL" "$C_RESET" >&2
+
+# step: base commands
+step "Installing base packages"
+if command -v yum >/dev/null 2>&1; then
+    run_step "gcc git make clang ncurses-devel the_silver_searcher" \
+        $SUDO yum -y install gcc git make clang ncurses-devel the_silver_searcher
+elif command -v apt-get >/dev/null 2>&1; then
+    run_step "updating apt package index" $SUDO apt-get -y update
+    run_step "gcc git make clang libncurses-dev silversearcher-ag" \
+        $SUDO apt-get -y install gcc git make clang libncurses-dev silversearcher-ag
+else
+    fail "no supported package manager (yum/apt-get) found"
+fi
+
+# step: vim
+if [ "$need_install_vim" -eq 1 ]; then
+    step "Installing Vim 8.2 from source"
+    cd "$rootpath"
+    run_step "cloning vim source" git clone https://github.com/vim/vim.git
+    cd vim/src
+    run_step "checking out v8.2.3430" git checkout v8.2.3430
+    run_step "compiling vim (this may take a few minutes)" \
+        bash -c './configure --with-features=huge --enable-cscope --enable-fontset && make -j"$(nproc)"'
+    run_step "installing vim" $SUDO make install
 
     # forget cached PATH lookups so the freshly installed vim is picked up
     hash -r 2>/dev/null || true
 
     if ! command -v vim >/dev/null 2>&1; then
-        say "😭  New vim version install failed!\n"
-        exit 1
+        fail "new vim install failed"
     fi
 
     version=$(vim --version | head -n 1 | awk '{print $5}')
     major=$(echo "$version" | awk -F '.' '{print $1}')
-
     if [ "${major:-0}" -lt 8 ]; then
-        say "😭  New vim version install failed!\n"
-        exit 2
+        fail "new vim install failed (version $version)"
     else
-        say "🌈  New vim version $version install successfully!\n"
+        ok "vim $version installed"
     fi
-fi
-
-# install fzf
-if ! command -v fzf >/dev/null 2>&1 && [ ! -x "${HOME}/.fzf/bin/fzf" ]; then
-    say "😥  Not found fzf command, install now ..."
-    rm -rf "${HOME}/.fzf"
-    git clone --depth 1 https://github.com/junegunn/fzf.git "${HOME}/.fzf" >> "$logfile" 2>&1
-    "${HOME}/.fzf/install" --all >> "$logfile" 2>&1
-
-    # validate via the full path (current shell PATH may not be updated yet)
-    if [ ! -x "${HOME}/.fzf/bin/fzf" ]; then
-        say "😭  Command fzf install failed!\n"
-        exit 1
-    fi
-
-    version=$("${HOME}/.fzf/bin/fzf" --version | awk '{print $1}')
-    say "🌈  Command fzf $version install successfully!\n"
 else
-    say "👀  Local fzf command is already installed!"
+    step "Checking Vim"
+    skip "vim $_vimver already installed"
 fi
 
-# check local vim-plug / .vimrc
+# step: fzf
+if [ "$need_install_fzf" -eq 1 ]; then
+    step "Installing fzf"
+    rm -rf "${HOME}/.fzf"
+    run_step "cloning fzf" git clone --depth 1 https://github.com/junegunn/fzf.git "${HOME}/.fzf"
+    run_step "running fzf installer" "${HOME}/.fzf/install" --all
+
+    if [ ! -x "${HOME}/.fzf/bin/fzf" ]; then
+        fail "fzf install failed"
+    fi
+    version=$("${HOME}/.fzf/bin/fzf" --version | awk '{print $1}')
+    ok "fzf $version installed"
+else
+    step "Checking fzf"
+    skip "fzf already installed"
+fi
+
+# step: vim-plug / vimrc
+step "Configuring vim-plug and .vimrc"
+run_step "fetching vimrc" \
+    curl -fsSL https://raw.githubusercontent.com/mrmgxxxx/vim/master/vimrc -o "$rootpath/vimrc"
+
 need_config_vim=0
-curl -fsSL https://raw.githubusercontent.com/mrmgxxxx/vim/master/vimrc -o "$rootpath/vimrc" >> "$logfile" 2>&1
 if [ -f "${HOME}/.vimrc" ]; then
     newFile=$(md5sum "$rootpath/vimrc" | awk '{print $1}')
     curFile=$(md5sum "${HOME}/.vimrc" | awk '{print $1}')
-
     if [ "$newFile" != "$curFile" ]; then
-        say "😥  The ${HOME}/.vimrc file is not correct, reconfig vim-plug now ..."
+        info "existing .vimrc differs, reconfiguring"
         need_config_vim=1
     else
-        say "👀  The vim-plug is already configed!"
+        skip ".vimrc already up to date"
     fi
 else
-    say "😥  Not found ${HOME}/.vimrc file, reconfig vim-plug now ..."
+    info "no .vimrc found, configuring"
     need_config_vim=1
 fi
 
-# config vim-plug
 if [ "$need_config_vim" -eq 1 ]; then
-    # remove only the paths we manage, not every ~/.vim* dotfile
     rm -rf "${HOME}/.vim" "${HOME}/.vimrc"
     mkdir -p "${HOME}/.vim/autoload/"
-    curl -fsSL https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim -o "${HOME}/.vim/autoload/plug.vim" >> "$logfile" 2>&1
+    run_step "installing vim-plug" \
+        curl -fsSL https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim -o "${HOME}/.vim/autoload/plug.vim"
     cp -f "$rootpath/vimrc" "${HOME}/.vimrc"
-    say "🌈  Install and config vim-plug successfully!\n"
-
-    # make the vim config effect(the workflow may be broken and stop if not do this at end)
-    vim +silent +PlugInstall +qall --not-a-term
+    run_step "installing plugins (PlugInstall)" \
+        vim +silent +PlugInstall +qall --not-a-term
+    ok "vim-plug configured"
 fi
 
-say "\n\t 🐸 🐸 🐸  Enjoy It ~ 🐸 🐸 🐸 \n"
+# done
+printf '\n%s\u2714 Done.%s Vim environment is ready.\n' "$C_GREEN$C_BOLD" "$C_RESET" >&2

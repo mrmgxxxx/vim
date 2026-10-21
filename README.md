@@ -5,17 +5,13 @@ Before installation, backup and clean all files and directories starting with '.
 
 Recommended OS is CentOS 8 which have Clang 11+, GCC 7+/8+, and you also could install universal ctags(https://github.com/universal-ctags/ctags) by your self for more ctag features.
 
-Install:
-
 Run the command to install and config your vim shit ~
 
 ```sh
 curl -fsSL https://raw.githubusercontent.com/mrmgxxxx/vim/master/install.sh | sudo bash
 ```
 
-Keybindings:
-
-## Custom Keybindings
+### Custom Keybindings
 
 | Key          | Mode   | Description                                                                                                                            | Source          |
 | ------------ | ------ | -------------------------------------------------------------------------------------------------------------------------------------- | --------------- |
@@ -23,8 +19,6 @@ Keybindings:
 | `<Leader>gg` | Normal | **Search word under cursor**: uses `Ag` (The Silver Searcher) to search the entire project for the word under cursor                   | fzf.vim         |
 | `<Ctrl-p>`   | Normal | **Fuzzy file finder**: opens fzf fuzzy search window to quickly locate and open files in the project                                   | fzf.vim         |
 | `<Leader>r`  | Normal | **Temporary relative line numbers**: enables relative line numbers for 1 second then auto-disables, useful for quick jump calculations | Custom function |
-
-## Plugin Behaviors & Implicit Keybindings
 
 ### vim-gutentags (Auto Tag Management)
 
@@ -51,21 +45,21 @@ Keybindings:
 | Auto format on save | Automatically runs `clang-format` on save for `.c/.h/.cpp/.hpp/.cc/.hh` files           |
 | Style               | Detects and uses a project-local `.clang-format` style file (`detect_style_file`)       |
 
-## Simple Auto Completion
+### Simple Auto Completion
 
 | Behavior           | Description                                                                                  |
 | ------------------ | -------------------------------------------------------------------------------------------- |
 | Keyword completion | Auto triggers keyword completion after typing 3 keyword characters                           |
 | Popup behavior     | `completeopt=menuone,noselect` shows the menu without preselecting; menu height capped at 10 |
 
-## Whitespace Management
+### Whitespace Management
 
 | Behavior            | Description                                                             |
 | ------------------- | ----------------------------------------------------------------------- |
 | Auto highlight      | Highlights trailing whitespace at end of lines (red background)         |
 | Auto strip on save  | Removes trailing whitespace on save while preserving cursor/view state  |
 
-## Basic Editor Settings
+### Basic Editor Settings
 
 | Setting                              | Effect                                                                        |
 | ------------------------------------ | ----------------------------------------------------------------------------- |
@@ -79,7 +73,7 @@ Keybindings:
 | `set maxmempattern=10240`            | Raise pattern-match memory limit (KB) to avoid errors on large files          |
 | Status line                          | Shows: working directory + file path + modified flag + line/column/percentage |
 
-Recommended .gitconfig:
+### Recommended .gitconfig
 
 ```
 [color]
@@ -106,7 +100,7 @@ Recommended .gitconfig:
     editor = vim
 ```
 
-Recommended Ghostty:
+### Recommended Ghostty Settings
 
 ```
 theme = Dark Pastel
