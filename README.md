@@ -105,3 +105,11 @@ Recommended .gitconfig:
 [core]
     editor = vim
 ```
+
+Recommended Ghostty:
+
+```
+theme = Dark Pastel
+font-feature = -calt,-liga,-dlig
+command = ssh username@x.x.x.x
+```
