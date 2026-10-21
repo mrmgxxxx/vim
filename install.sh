@@ -22,9 +22,6 @@ step() {
 # info "message"  -- a plain sub-line under a step
 info() { printf '    %s%s%s\n' "$C_DIM" "$1" "$C_RESET" >&2; }
 
-# skip "message"  -- marks something already done / skipped
-skip() { printf '    %s\u2022%s %s\n' "$C_DIM" "$C_RESET" "$1" >&2; }
-
 # ok "message"    -- a success sub-line (no timing)
 ok() { printf '    %s\u2714%s %s\n' "$C_GREEN" "$C_RESET" "$1" >&2; }
 
@@ -80,11 +77,11 @@ rootpath=$(mktemp -d "${TMPDIR:-/tmp}/mrmgxxxx-vim.XXXXXX")
 logfile="$rootpath/install.log"
 trap 'echo "see log: $logfile"' ERR
 
-# probe what needs to be done, so the [n/N] counter is accurate
-# step 1: base packages (always)
-STEP_TOTAL=$((STEP_TOTAL + 1))
+# total number of steps is fixed; each step is either performed or already
+# satisfied (which still counts as a completed step).
+STEP_TOTAL=4
 
-# step 2: vim (only if missing or < 8)
+# probe whether vim needs installing (missing or version < 8)
 need_install_vim=0
 if ! command -v vim >/dev/null 2>&1; then
     need_install_vim=1
@@ -93,17 +90,12 @@ else
     _vimmajor=$(echo "$_vimver" | awk -F '.' '{print $1}')
     [ "${_vimmajor:-0}" -lt 8 ] && need_install_vim=1
 fi
-[ "$need_install_vim" -eq 1 ] && STEP_TOTAL=$((STEP_TOTAL + 1))
 
-# step 3: fzf (only if missing)
+# probe whether fzf needs installing (missing)
 need_install_fzf=0
 if ! command -v fzf >/dev/null 2>&1 && [ ! -x "${HOME}/.fzf/bin/fzf" ]; then
     need_install_fzf=1
-    STEP_TOTAL=$((STEP_TOTAL + 1))
 fi
-
-# step 4: vim-plug / vimrc (always run the config step; it is idempotent)
-STEP_TOTAL=$((STEP_TOTAL + 1))
 
 printf '%s%sSetting up Vim8 environment%s %s(%d steps)%s\n' \
     "$C_BOLD" "$C_BLUE" "$C_RESET" "$C_DIM" "$STEP_TOTAL" "$C_RESET" >&2
@@ -147,7 +139,8 @@ if [ "$need_install_vim" -eq 1 ]; then
         ok "vim $version installed"
     fi
 else
-    skip "vim $_vimver already installed"
+    step "Checking Vim"
+    ok "vim $_vimver already installed"
 fi
 
 # step: fzf
@@ -163,7 +156,8 @@ if [ "$need_install_fzf" -eq 1 ]; then
     version=$("${HOME}/.fzf/bin/fzf" --version | awk '{print $1}')
     ok "fzf $version installed"
 else
-    skip "fzf already installed"
+    step "Checking fzf"
+    ok "fzf already installed"
 fi
 
 # step: vim-plug / vimrc
@@ -179,7 +173,7 @@ if [ -f "${HOME}/.vimrc" ]; then
         info "existing .vimrc differs, reconfiguring"
         need_config_vim=1
     else
-        skip ".vimrc already up to date"
+        ok ".vimrc already up to date"
     fi
 else
     info "no .vimrc found, configuring"
