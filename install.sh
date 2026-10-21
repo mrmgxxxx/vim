@@ -3,6 +3,38 @@ set -eo pipefail
 
 say() { echo -e "\e[34;1m$1\033[0m"; }
 
+# run_step "description" cmd args...
+# runs the command in background with output appended to $logfile, shows a
+# spinner while it runs, then prints the elapsed time; exits on failure.
+run_step() {
+    local desc="$1"; shift
+    local start=$SECONDS
+
+    "$@" >> "$logfile" 2>&1 &
+    local pid=$!
+
+    if [ -t 2 ]; then
+        local frames='⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏'
+        local i=0
+        while kill -0 "$pid" 2>/dev/null; do
+            i=$(( (i + 1) % ${#frames} ))
+            printf '\r\e[34;1m%s\033[0m %s' "${frames:$i:1}" "$desc" >&2
+            sleep 0.1
+        done
+    else
+        printf '... %s\n' "$desc" >&2
+    fi
+
+    if wait "$pid"; then
+        printf '\r\e[32;1m✔\033[0m %s (%ds)\033[K\n' "$desc" "$((SECONDS - start))" >&2
+    else
+        printf '\r\e[31;1m✘\033[0m %s (%ds)\033[K\n' "$desc" "$((SECONDS - start))" >&2
+        say "😭  Step failed: $desc"
+        echo "see log: $logfile" >&2
+        exit 1
+    fi
+}
+
 if [ "$(id -u)" -eq 0 ]; then
     SUDO=""
 else
@@ -17,10 +49,12 @@ trap 'echo "see log: $logfile"' ERR
 
 # install base commands
 if command -v yum >/dev/null 2>&1; then
-    $SUDO yum -y install gcc git make clang ncurses-devel the_silver_searcher >> "$logfile" 2>&1
+    run_step "Installing base packages (gcc/git/make/clang/ag)" \
+        $SUDO yum -y install gcc git make clang ncurses-devel the_silver_searcher
 elif command -v apt-get >/dev/null 2>&1; then
-    $SUDO apt-get -y update >> "$logfile" 2>&1
-    $SUDO apt-get -y install gcc git make clang libncurses-dev silversearcher-ag >> "$logfile" 2>&1
+    run_step "Updating apt package index" $SUDO apt-get -y update
+    run_step "Installing base packages (gcc/git/make/clang/ag)" \
+        $SUDO apt-get -y install gcc git make clang libncurses-dev silversearcher-ag
 else
     say "😭  No supported package manager (yum/apt-get) found!"
     exit 1
