@@ -86,9 +86,9 @@ need_install_vim=0
 if ! command -v vim >/dev/null 2>&1; then
     need_install_vim=1
 else
-    _vimver=$(vim --version | head -n 1 | awk '{print $5}')
-    _vimmajor=$(echo "$_vimver" | awk -F '.' '{print $1}')
-    [ "${_vimmajor:-0}" -lt 8 ] && need_install_vim=1
+    vim_version=$(vim --version | head -n 1 | awk '{print $5}')
+    vim_major=$(echo "$vim_version" | awk -F '.' '{print $1}')
+    [ "${vim_major:-0}" -lt 8 ] && need_install_vim=1
 fi
 
 # probe whether fzf needs installing (missing)
@@ -140,7 +140,7 @@ if [ "$need_install_vim" -eq 1 ]; then
     fi
 else
     step "Checking Vim"
-    ok "vim $_vimver already installed"
+    ok "vim $vim_version already installed"
 fi
 
 # step: fzf
@@ -167,9 +167,9 @@ run_step "fetching vimrc" \
 
 need_config_vim=0
 if [ -f "${HOME}/.vimrc" ]; then
-    newFile=$(md5sum "$rootpath/vimrc" | awk '{print $1}')
-    curFile=$(md5sum "${HOME}/.vimrc" | awk '{print $1}')
-    if [ "$newFile" != "$curFile" ]; then
+    new_sum=$(md5sum "$rootpath/vimrc" | awk '{print $1}')
+    cur_sum=$(md5sum "${HOME}/.vimrc" | awk '{print $1}')
+    if [ "$new_sum" != "$cur_sum" ]; then
         info "existing .vimrc differs, reconfiguring"
         need_config_vim=1
     else
