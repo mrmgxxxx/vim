@@ -10,8 +10,20 @@ Plug 'rhysd/vim-clang-format'
 call plug#end()
 
 " junegunn/fzf.vim
-nnoremap <silent> <Leader>gg :Ag <C-R><C-W><CR>
-nnoremap <silent> <c-p> :Files <CR>
+function! s:ProjectRoot() abort
+  let l:markers = ['.root', '.git']
+  let l:dir = expand('%:p:h')
+  let l:found = ''
+  for l:m in l:markers
+    let l:found = finddir(l:m, l:dir . ';')
+    if empty(l:found) | let l:found = findfile(l:m, l:dir . ';') | endif
+    if !empty(l:found) | return fnamemodify(l:found, ':p:h:h') | endif
+  endfor
+  return l:dir
+endfunction
+nnoremap <silent> <c-p> :call fzf#vim#files(<SID>ProjectRoot(), fzf#vim#with_preview())<CR>
+nnoremap <silent> <Leader>gg :call fzf#vim#ag(expand('<cword>'),
+  \ extend({'dir': <SID>ProjectRoot()}, fzf#vim#with_preview()))<CR>
 
 " fatih/vim-go
 let g:go_version_warning = 0
