@@ -17,15 +17,15 @@ trap 'echo "see log: $logfile"' ERR
 
 # install base commands
 if command -v yum >/dev/null 2>&1; then
-    $SUDO yum -y install gcc git wget make clang llvm ncurses-devel the_silver_searcher >> "$logfile" 2>&1
+    $SUDO yum -y install gcc git wget make clang ncurses-devel the_silver_searcher >> "$logfile" 2>&1
 elif command -v apt-get >/dev/null 2>&1; then
     $SUDO apt-get -y update >> "$logfile" 2>&1
-    $SUDO apt-get -y install gcc git wget make clang llvm libncurses-dev silversearcher-ag >> "$logfile" 2>&1
+    $SUDO apt-get -y install gcc git wget make clang libncurses-dev silversearcher-ag >> "$logfile" 2>&1
 else
     say "😭  No supported package manager (yum/apt-get) found!"
     exit 1
 fi
-say "🌈  Commands gcc/git/wget/make/clang/llvm/ag install successfully!\n"
+say "🌈  Commands gcc/git/wget/make/clang/ag install successfully!\n"
 
 # check local vim version
 need_install_vim=0

@@ -10,7 +10,7 @@ Install:
 Run the command to install and config your vim shit ~
 
 ```sh
-sudo wget -O - https://raw.githubusercontent.com/mrmgxxxx/vim/master/install.sh | sh
+sudo wget -O - https://raw.githubusercontent.com/mrmgxxxx/vim/master/install.sh | bash
 ```
 
 Keybindings:
