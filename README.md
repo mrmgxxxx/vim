@@ -72,38 +72,3 @@ curl -fsSL https://raw.githubusercontent.com/mrmgxxxx/vim/master/install.sh | su
 | `set backspace=2`                    | Allow backspace over indent, line breaks, and pre-existing characters         |
 | `set maxmempattern=10240`            | Raise pattern-match memory limit (KB) to avoid errors on large files          |
 | Status line                          | Shows: working directory + file path + modified flag + line/column/percentage |
-
-### Recommended .gitconfig
-
-```
-[color]
-    branch = auto
-    ui = auto
-    status = auto
-[alias]
-    st = status
-    co = checkout
-
-    # show the file commit log graph base on 'git log'
-    ll = log --graph --abbrev-commit --decorate --format=format:'%C(red)%h%C(reset) - %C(bold yellow)%d%C(reset) %C(bold green)%s%C(reset) %C(blue)- %an%C(reset) %C(blue)%aD%C(reset) %C(blue)(%ar)%C(reset)' --all
-
-    # show the file line commit base on 'git blame' and 'git log',
-    # e.g.: git lb 42 example.cpp
-    lb = "!f() { \
-        commit_hash=$(git blame -L $1,$1 \"$2\" 2>/dev/null | awk \"{print \\$1}\" | head -1); \
-        if [ -z \"$commit_hash\" ] || [ \"$commit_hash\" = \"^\" ]; then \
-            return 1; \
-        fi; \
-        git log --format=\"%s\" -n 1 $commit_hash; \
-    }; f"
-[core]
-    editor = vim
-```
-
-### Recommended Ghostty Settings
-
-```
-theme = Dark Pastel
-font-feature = -calt,-liga,-dlig
-command = ssh username@x.x.x.x
-```
