@@ -17,15 +17,15 @@ trap 'echo "see log: $logfile"' ERR
 
 # install base commands
 if command -v yum >/dev/null 2>&1; then
-    $SUDO yum -y install gcc git wget make clang ncurses-devel the_silver_searcher >> "$logfile" 2>&1
+    $SUDO yum -y install gcc git make clang ncurses-devel the_silver_searcher >> "$logfile" 2>&1
 elif command -v apt-get >/dev/null 2>&1; then
     $SUDO apt-get -y update >> "$logfile" 2>&1
-    $SUDO apt-get -y install gcc git wget make clang libncurses-dev silversearcher-ag >> "$logfile" 2>&1
+    $SUDO apt-get -y install gcc git make clang libncurses-dev silversearcher-ag >> "$logfile" 2>&1
 else
     say "😭  No supported package manager (yum/apt-get) found!"
     exit 1
 fi
-say "🌈  Commands gcc/git/wget/make/clang/ag install successfully!\n"
+say "🌈  Commands gcc/git/make/clang/ag install successfully!\n"
 
 # check local vim version
 need_install_vim=0
@@ -95,7 +95,7 @@ fi
 
 # check local vim-plug / .vimrc
 need_config_vim=0
-wget -N https://raw.githubusercontent.com/mrmgxxxx/vim/master/vimrc -P "$rootpath" >> "$logfile" 2>&1
+curl -fsSL https://raw.githubusercontent.com/mrmgxxxx/vim/master/vimrc -o "$rootpath/vimrc" >> "$logfile" 2>&1
 if [ -f "${HOME}/.vimrc" ]; then
     newFile=$(md5sum "$rootpath/vimrc" | awk '{print $1}')
     curFile=$(md5sum "${HOME}/.vimrc" | awk '{print $1}')
@@ -116,7 +116,7 @@ if [ "$need_config_vim" -eq 1 ]; then
     # remove only the paths we manage, not every ~/.vim* dotfile
     rm -rf "${HOME}/.vim" "${HOME}/.vimrc"
     mkdir -p "${HOME}/.vim/autoload/"
-    wget -N https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim -P "${HOME}/.vim/autoload/" >> "$logfile" 2>&1
+    curl -fsSL https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim -o "${HOME}/.vim/autoload/plug.vim" >> "$logfile" 2>&1
     cp -f "$rootpath/vimrc" "${HOME}/.vimrc"
     say "🌈  Install and config vim-plug successfully!\n"
 
