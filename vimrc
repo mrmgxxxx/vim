@@ -88,6 +88,29 @@ endfunction
 command! ToggleRelativeNumberTemporary call ToggleRelativeNumberTemporary()
 nnoremap <leader>r :ToggleRelativeNumberTemporary<CR>
 
+" git blame
+function! s:GitBlameLine() abort
+  let l:file = expand('%')
+  if empty(l:file) | echo '[No file]' | return | endif
+  let l:line = line('.')
+  let l:out = systemlist('git -C ' . shellescape(expand('%:p:h')) . ' --no-pager blame '
+    \ . shellescape(expand('%:t')) . ' -L ' . l:line . ',+1 --porcelain')
+  if v:shell_error | echo '[' . (empty(l:out) ? 'git blame failed' : l:out[0]) . ']' | return | endif
+  let l:hash = matchstr(l:out[0], '^\^*\zs\S\+')
+  if l:hash =~# '^0\+$' | echo '[Not committed yet]' | return | endif
+  let [l:author, l:mail, l:tstamp, l:summary] = ['', '', '', '']
+  for l:l in l:out
+    if     l:l =~# '^author '      | let l:author  = matchstr(l:l, '^author \zs.\+$')
+    elseif l:l =~# '^author-mail ' | let l:mail    = matchstr(l:l, '^author-mail \zs.\+$')
+    elseif l:l =~# '^author-time ' | let l:tstamp  = matchstr(l:l, '^author-time \zs.\+$')
+    elseif l:l =~# '^summary '     | let l:summary = matchstr(l:l, '^summary \zs.\+$') | break
+    endif
+  endfor
+  let l:when = empty(l:tstamp) ? '' : strftime('%Y-%m-%d %H:%M:%S', l:tstamp)
+  echo '[' . l:hash[0:8] . '] ' . l:summary . ' ' . l:mail . ' ' . l:author . ' (' . l:when . ')'
+endfunction
+nnoremap <silent> <Leader>f :<C-u>call <SID>GitBlameLine()<CR>
+
 " basic settings
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 set termencoding=utf-8

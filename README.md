@@ -19,6 +19,7 @@ curl -fsSL https://raw.githubusercontent.com/mrmgxxxx/vim/master/install.sh | su
 | `<Leader>gg` | Normal | **Search word under cursor**: uses `Ag` (The Silver Searcher) to search the entire project for the word under cursor                   | fzf.vim         |
 | `<Ctrl-p>`   | Normal | **Fuzzy file finder**: opens fzf fuzzy search window to quickly locate and open files in the project                                   | fzf.vim         |
 | `<Leader>r`  | Normal | **Temporary relative line numbers**: enables relative line numbers for 1 second then auto-disables, useful for quick jump calculations | Custom function |
+| `<Leader>f`  | Normal | **Blame current line**: echoes the last commit (hash / summary / author / mail / time) that touched the line under cursor                | Custom function |
 
 ### vim-gutentags (Auto Tag Management)
 
@@ -44,6 +45,16 @@ curl -fsSL https://raw.githubusercontent.com/mrmgxxxx/vim/master/install.sh | su
 | ------------------- | --------------------------------------------------------------------------------------- |
 | Auto format on save | Automatically runs `clang-format` on save for `.c/.h/.cpp/.hpp/.cc/.hh` files           |
 | Style               | Detects and uses a project-local `.clang-format` style file (`detect_style_file`)       |
+
+### git blame (Line Commit Info)
+
+| Behavior          | Description                                                                                                   |
+| ----------------- | ------------------------------------------------------------------------------------------------------------- |
+| Blame current line| Runs `git blame --porcelain` on the line under cursor and echoes the commit that last changed it              |
+| Output format     | `[hash] summary author-mail author (YYYY-MM-DD HH:MM:SS)`, shown on the command line                          |
+| Not a git repo    | Echoes the git error (e.g. `git blame failed`) instead of raising an error                                    |
+| Not committed yet | Echoes `[Not committed yet]` for lines that are modified but not committed                                    |
+| Implementation    | Self-contained function in `vimrc` (no plugin), replacing `zivyangll/git-blame.vim`; triggered by `<Leader>f` |
 
 ### Simple Auto Completion
 
